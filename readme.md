@@ -12,7 +12,7 @@ The **generated models** can be used all over ORMs..
 
 ---
 
-I was curious how this can be done in a homebrew version. The `DBWrapper` is a static class, which the user pass any connection, for example : 
+I was curious how this can be done in a homebrew version. The `DBWrapper` is a class, which the user pass any connection, for example : 
 
 ```csharp
 General.db = new DBASEWrapper(new OleDbConnection(connectionString));
