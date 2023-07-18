@@ -1,0 +1,56 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Models;
+
+namespace Services
+{
+    public class {className}Service : ICRUDService<{className}>
+    {
+        public bool Insert({className} obj)
+        {
+            var command = @"{outputINSERT}";
+            var parms = new { {insertOBJvalues} };
+            var result =  General.db.ExecuteModel(command, parms);
+            return result > 0;
+        }
+
+        public long InsertReturnId({className} obj)
+        {
+            var command = @"{outputINSERT}";
+            var parms = new { {insertOBJvalues} };
+            var result = General.db.ExecuteModel(command, parms);
+            if (result > 0)
+                return long.Parse(General.db.ExecuteScalar("{outputINSERTgetNewId}").ToString());
+            else
+                return 0;
+        }
+
+        public {className} Get(long id)
+        {
+            var command = @"{outputGetId}";
+            var parms = new { {primaryKey} = id };
+            return General.db.QueryFirst<{className}>(command, parms);
+        }
+
+        public List<{className}> GetList()
+        {
+            var command = @"{outputGetList}";
+            return General.db.Query<{className}>(command).ToList();
+        }
+
+        public bool Update({className} obj)
+        {
+            var command = @"{outputUPDATE}";
+            var result = General.db.ExecuteModel(command, obj);
+            return result > 0;
+        }
+
+        public bool Delete(long id)
+        {
+            var command = @"{outputeDELETE}";
+            var parms = new { {primaryKey} = id };
+            var result = General.db.ExecuteModel(command, parms);
+            return result > 0;
+        }
+    }
+}
