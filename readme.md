@@ -20,7 +20,6 @@ General.db = new DBASEWrapper(new MySqlConnection(connectionString));
 General.db = new DBASEWrapper(new SQLiteConnection(connectionString));
 General.db = new DBASEWrapper(new SqlConnection(connectionString));
 General.db = new DBASEWrapper(new Oracle.ManagedDataAccess.Client.OracleConnection(connectionString));
-General.db = new DBASEWrapper(new MySqlConnection(connectionString));
 ```
 
 afterwards user at **glance** have these :
