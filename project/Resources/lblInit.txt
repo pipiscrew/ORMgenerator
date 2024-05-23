@@ -1,0 +1,1 @@
+            this.lbl{field} = new System.Windows.Forms.Label();

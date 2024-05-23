@@ -1,0 +1,11 @@
+
+
+        public SortableBindingList<{className}> GetListSortable(string searchLike="")
+        {
+            var command = @"{outputGetList}";
+
+            if (searchLike.Length > 0)
+                return new SortableBindingList<{className}>(General.db.Query<{className}>(command).Where(item => item.GetType().GetProperties().Any(prop => prop.PropertyType == typeof(string) && prop.GetValue(item, null) != null && prop.GetValue(item, null).ToString().IndexOf(searchLike, StringComparison.OrdinalIgnoreCase) >= 0)).ToList());
+            else
+                return new SortableBindingList<{className}>(General.db.Query<{className}>(command));
+        }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Models;
 
-namespace Services
+namespace Services.Base
 {
-    public class {className}Service : ICRUDService<{className}>
+    public class {className}ServiceBase : ICRUDService<{className}>
     {
         public bool Insert({className} obj)
         {

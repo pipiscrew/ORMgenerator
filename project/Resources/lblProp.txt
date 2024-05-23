@@ -1,0 +1,9 @@
+            // 
+            // lbl{field}
+            // 
+            this.lbl{field}.AutoSize = true;
+            this.lbl{field}.Location = new System.Drawing.Point({left}, {top});
+            this.lbl{field}.Name = "lbl{field}";
+            this.lbl{field}.Size = new System.Drawing.Size(66, 15);
+            this.lbl{field}.TabIndex = {tabindex};
+            this.lbl{field}.Text = "lbl{field} :";

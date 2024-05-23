@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Models;
 
-namespace Services
+namespace Services.Base
 {
-    public class {className}Service : ICRUDService<{className}>
+    public class {className}ServiceBase : ICRUDService<{className}>
     {
         public bool Insert({className} obj)
         {
@@ -36,6 +37,14 @@ namespace Services
         {
             var command = @"{outputGetList}";
             return General.db.Query<{className}>(command).ToList();
+        }{winformGetListSortFunction}
+
+        public List<{className}> GetComboList()
+        {
+            var command = @"{outputGetList}";
+            var l = General.db.Query<{className}>(command);
+            l.Insert(0, new {className}() { {primaryKey} = 0, {titleField} = "" });
+            return l.OrderBy(x => x.{titleField}).ToList();
         }
 
         public bool Update({className} obj)
@@ -51,6 +60,6 @@ namespace Services
             var parms = new { {primaryKey} = id };
             var result = General.db.ExecuteModel(command, parms);
             return result > 0;
-        }
+        }{winformGetExportEXCELFunction}
     }
 }

@@ -75,6 +75,25 @@
     </Compile>
     <Content Include="Resources\constGeneral.txt" />
     <Content Include="Resources\constDBASEWrapper.txt" />
+    <None Include="Resources\txtBinding.txt" />
+    <None Include="Resources\txtProp.txt" />
+    <None Include="Resources\txtParent.txt" />
+    <None Include="Resources\txtInit.txt" />
+    <None Include="Resources\txtDeclare.txt" />
+    <None Include="Resources\lblProp.txt" />
+    <None Include="Resources\lblParent.txt" />
+    <None Include="Resources\lblInit.txt" />
+    <None Include="Resources\lblDeclare.txt" />
+    <None Include="Resources\Form2.resx.txt" />
+    <None Include="Resources\Form2.designer.cs.txt" />
+    <None Include="Resources\Form2.cs.txt" />
+    <None Include="Resources\DBASEWrapperReflectionServiceExportEXCELFunction.txt" />
+    <None Include="Resources\ExcelExport.txt" />
+    <None Include="Resources\SortableBindingList.txt" />
+    <None Include="Resources\DBASEWrapperReflectionServiceSortFunction.txt" />
+    <None Include="Resources\constModelBase.txt" />
+    <None Include="Resources\Service.txt" />
+    <None Include="Resources\Model.txt" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

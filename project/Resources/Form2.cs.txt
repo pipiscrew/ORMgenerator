@@ -1,0 +1,170 @@
+﻿using Models;
+using Services;
+using System;
+using System.Windows.Forms;
+
+namespace Forms
+{
+    public partial class frm{entity} : Form
+    {
+        private {entity}Service {entityL}Service = new {entity}Service();
+        //private SupplierService supplierService = new SupplierService();  // dummy service for combos
+
+        private BindingSource bindSource;
+
+        public frm{entity}()
+        {
+            InitializeComponent();
+        }
+
+        private void frm{entity}_Load(object sender, EventArgs e)
+        {
+            //master! dont forget @ Program.cs MUST run :
+			//General.db = new DBASEWrapper(new SQLiteConnection(@"Data Source=c:\northwind.db;Version=3"));
+			//
+            //FillSuppliers(); dummy method for combos
+            FillGrid();
+        }
+
+        private void FillGrid()
+        {
+			dg.SuspendLayout();
+            dg.DataSource = null;
+            bindSource = new BindingSource();
+            bindSource.DataSource = {entityL}Service.GetListSortable();
+            dg.DataSource = bindSource;
+			dg.ResumeLayout();
+
+            BIND();
+        }
+
+        //private void FillSuppliers()  //dummy method for combos
+        //{   
+        //    txtSupplierID.Items.Clear();
+        //    txtSupplierID.DataSource = supplierService.GetComboList();
+        //    txtSupplierID.DisplayMember = "companyname";
+        //    txtSupplierID.ValueMember = "supplierid";
+        //}
+
+        private void BIND()
+        {
+{bindcontrols}
+
+            //for combos this must be TRUE, otherwise on lost_focus returns to dbase value! - similar -- https://developer.mescius.com/forums/winforms-edition/combobox-binding
+            //txtSupplierID.DataBindings.Add(new Binding("SelectedValue", this.bindSource, "SupplierID", true));
+        }
+        
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            if (btnNew.Text.Equals("new"))
+            {
+                dg.Enabled = btnEdit.Enabled = false;
+                groupBox1.Enabled = true;
+                btnNew.Text = "save";
+                btnDelete.Text = "cancel";
+
+                bindSource.AddNew();
+
+                txt{PK}.Focus();
+            }
+            else
+            {
+                //dummy validation for combos
+                //if (txtSupplierID.SelectedValue == null)
+                //{
+                //    General.Mes("cmdSupplierID.SelectedValue is null");
+                //    return;
+                //}
+
+                //return the newly table ID as result, stored to bindSource collection!
+                txt{PK}.Text = {entityL}Service.InsertReturnId(({entity})bindSource.Current).ToString();
+
+                // Commit any pending changes to bindingsource ( in memory )
+                bindSource.EndEdit();
+
+                ResetActionButtons();
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (btnEdit.Text.Equals("edit"))
+            {
+                dg.Enabled = btnNew.Enabled = false;
+                groupBox1.Enabled = true;
+                btnEdit.Text = "update";
+                btnDelete.Text = "cancel";
+            }
+            else
+            {
+                //use the bindsource *current object* to update the dbase!
+                if (!{entityL}Service.Update(({entity})bindSource.Current))
+                {
+                    General.Mes("Update is not performed!\r\n\r\nContact support!", MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                // Commit any pending changes to bindingsource ( in memory )
+                bindSource.EndEdit();
+
+                ResetActionButtons();
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (btnDelete.Text.Equals("cancel"))
+            {
+                bindSource.CancelEdit();
+                ResetActionButtons();
+            }
+            else
+            {
+                //delete logic
+                {entity} obj = ({entity})bindSource.Current;
+                if (General.Mes("Delete " + obj.{PKL} + " ?", MessageBoxIcon.Information, MessageBoxButtons.YesNoCancel) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    if ({entityL}Service.Delete(obj.{PKL}))
+                        bindSource.Remove(bindSource.Current);
+                    else
+                        General.Mes("Could not delete the record.\r\n\r\nContact support!");
+                }
+            }
+        }
+
+        private void ResetActionButtons()
+        {
+            dg.Enabled = btnEdit.Enabled = btnNew.Enabled = true;
+            groupBox1.Enabled = false;
+            btnNew.Text = "new";
+            btnEdit.Text = "edit";
+            btnDelete.Text = "delete";
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+				Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
+                e.Handled = true;
+
+				dg.SuspendLayout();
+                bindSource.DataSource = {entityL}Service.GetListSortable(txtSearch.Text.Trim());
+				dg.ResumeLayout();
+
+				Cursor = System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            
+			if (!{entityL}Service.ExportExcel())
+                General.Mes("Excel cannot be found, operation aborted!", MessageBoxIcon.Exclamation);
+
+			Cursor = System.Windows.Forms.Cursors.Default;
+        }
+    }
+}

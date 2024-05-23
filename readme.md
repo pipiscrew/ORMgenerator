@@ -151,4 +151,8 @@ The following databases tested & working :
 
 on *file-based databases*, user is able to *drag & drop* the file to the form.  
 
-greets to [Hytm/CockroachDB-Dapper-Example](https://github.com/Hytm/CockroachDB-Dapper-Example) for the service pattern...
+greets to [Hytm/CockroachDB-Dapper-Example](https://github.com/Hytm/CockroachDB-Dapper-Example) for the service pattern...  
+
+---
+
+alternative [FreeSql](https://github.com/dotnetcore/FreeSql)

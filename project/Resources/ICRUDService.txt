@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Services
+namespace Services.Base
 {
     public interface ICRUDService<T> where T : class
     {

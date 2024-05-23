@@ -1,0 +1,1 @@
+            this.groupBox1.Controls.Add(this.lbl{field});

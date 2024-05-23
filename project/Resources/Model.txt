@@ -1,0 +1,13 @@
+using System; 
+using Models.Base; 
+ 
+namespace Models
+{ 
+     /// <summary>
+     /// This file will not be overwritten. You can put additional {className} model code in this class 
+     /// </summary>
+     public class {className} : {className}Base 
+     { 
+
+     } 
+} 

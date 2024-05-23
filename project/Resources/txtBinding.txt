@@ -1,0 +1,1 @@
+            txt{field}.DataBindings.Add(new Binding("Text", this.bindSource, "{fieldL}", false));

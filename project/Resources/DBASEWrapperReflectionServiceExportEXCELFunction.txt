@@ -1,0 +1,7 @@
+
+
+        public bool ExportExcel()
+        {
+            var command = @"{outputGetList}";
+            return ExcelExport.GenerateExcel(DateTime.Now.ToString("yyyy-MM-dd_HHmmss"), General.db.GetDataTable(command));
+        }

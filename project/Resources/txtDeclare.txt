@@ -1,0 +1,1 @@
+            private System.Windows.Forms.TextBox txt{field};

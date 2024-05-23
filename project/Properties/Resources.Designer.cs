@@ -116,7 +116,7 @@ namespace ORMgenerator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to using System.Collections.Generic;
         ///
-        ///namespace Services
+        ///namespace Services.Base
         ///{
         ///    public interface ICRUDService&lt;T&gt; where T : class
         ///    {
@@ -136,14 +136,36 @@ namespace ORMgenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.ComponentModel;
+        ///
+        ////*
+        /// * Use of IEditableObject when class used with BindingSource - https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.ieditableobject
+        /// * fills the gap on CancelEdit and restores the original class property values.
+        /// * thanks Dan Douglas for this piece of code https://wp.me/puPy2-3X (Add Reusable (Inheritable) Commit/Rollback)
+        /// */
+        ///namespace Models.Base
+        ///{
+        ///    [Serializable]
+        ///    public abstract class ModelBase : IEditableObject
+        ///    {
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string constModelBase {
+            get {
+                return ResourceManager.GetString("constModelBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to using Dapper;
         ///using System.Collections.Generic;
         ///using System.Linq;
         ///using Models;
         ///
-        ///namespace Services
+        ///namespace Services.Base
         ///{
-        ///    public class {className}Service : ICRUDService&lt;{className}&gt;
+        ///    public class {className}ServiceBase : ICRUDService&lt;{className}&gt;
         ///    {
         ///        public bool Insert({className} obj)
         ///        {
@@ -153,7 +175,7 @@ namespace ORMgenerator.Properties {
         ///            return result &gt; 0;
         ///        }
         ///
-        ///        public long InsertReturnId({className} obj)        /// [rest of string was truncated]&quot;;.
+        ///        public long InsertReturnId({classNa [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DapperServiceTemplate {
             get {
@@ -162,13 +184,45 @@ namespace ORMgenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.Collections.Generic;
-        ///using System.Linq;
-        ///using Models;
+        ///   Looks up a localized string similar to 
         ///
-        ///namespace Services
+        ///        public bool ExportExcel()
+        ///        {
+        ///            var command = @&quot;{outputGetList}&quot;;
+        ///            return ExcelExport.GenerateExcel(DateTime.Now.ToString(&quot;yyyy-MM-dd_HHmmss&quot;), General.db.GetDataTable(command));
+        ///        }.
+        /// </summary>
+        internal static string DBASEWrapperReflectionServiceExportEXCELFunction {
+            get {
+                return ResourceManager.GetString("DBASEWrapperReflectionServiceExportEXCELFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///
+        ///        public SortableBindingList&lt;{className}&gt; GetListSortable(string searchLike=&quot;&quot;)
+        ///        {
+        ///            var command = @&quot;{outputGetList}&quot;;
+        ///
+        ///            if (searchLike.Length &gt; 0)
+        ///                return new SortableBindingList&lt;{className}&gt;(General.db.Query&lt;{className}&gt;(command).Where(item =&gt; item.GetType().GetProperties().Any(prop =&gt; prop.PropertyType == typeof(string) &amp;&amp; prop.GetValue(item, null) != null &amp;&amp; prop.GetValue(item, null).ToString().IndexOf(searchLike, StringComparison.OrdinalIgnoreCa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DBASEWrapperReflectionServiceSortFunction {
+            get {
+                return ResourceManager.GetString("DBASEWrapperReflectionServiceSortFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using Models;
+        ///using System;
+        ///using System.Collections.Generic;
+        ///using System.Linq;
+        ///
+        ///namespace Services.Base
         ///{
-        ///    public class {className}Service : ICRUDService&lt;{className}&gt;
+        ///    public class {className}ServiceBase : ICRUDService&lt;{className}&gt;
         ///    {
         ///        public bool Insert({className} obj)
         ///        {
@@ -179,12 +233,271 @@ namespace ORMgenerator.Properties {
         ///        }
         ///
         ///        public long InsertReturnId({className} obj)
-        ///        {
-        ///            va [rest of string was truncated]&quot;;.
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DBASEWrapperReflectionServiceTemplate {
             get {
                 return ResourceManager.GetString("DBASEWrapperReflectionServiceTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.ComponentModel;
+        ///using System.Data;
+        ///using System.Reflection;
+        ///using System.Runtime.InteropServices;
+        ///
+        ///namespace Services.Base
+        ///{
+        ///    internal static class ExcelExport
+        ///    {
+        ///        private static object objRange_Late;
+        ///        private static object objSheet_Late;
+        ///
+        ///        //https://social.msdn.microsoft.com/Forums/vstudio/en-US/694fad12-fcbb-4995-89c5-092e8bb9114a/write-to-excel-multiple-sheet-using-late-binding?forum=vsto
+        ///        public [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ExcelExport {
+            get {
+                return ResourceManager.GetString("ExcelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using Models;
+        ///using Services;
+        ///using System;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace Forms
+        ///{
+        ///    public partial class frm{entity} : Form
+        ///    {
+        ///        private {entity}Service {entityL}Service = new {entity}Service();
+        ///        //private SupplierService supplierService = new SupplierService();  // dummy method for combos
+        ///
+        ///        private BindingSource bindSource;
+        ///
+        ///        public frm{entity}()
+        ///        {
+        ///            InitializeComponent();
+        ///        }
+        ///
+        ///        private void frm{entity}_Load(object s [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form2_cs {
+            get {
+                return ResourceManager.GetString("Form2_cs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to namespace Forms
+        ///{
+        ///    partial class frm{entity}
+        ///    {
+        ///        /// &lt;summary&gt;
+        ///        /// Required designer variable.
+        ///        /// &lt;/summary&gt;
+        ///        private System.ComponentModel.IContainer components = null;
+        ///
+        ///        /// &lt;summary&gt;
+        ///        /// Clean up any resources being used.
+        ///        /// &lt;/summary&gt;
+        ///        /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
+        ///        protected override void Dispose(bool disposing)
+        ///        {
+        ///            if (disposi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form2_designer_cs {
+            get {
+                return ResourceManager.GetString("Form2_designer_cs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;root&gt;
+        ///  &lt;xsd:schema id=&quot;root&quot; xmlns=&quot;&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+        ///    &lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; /&gt;
+        ///    &lt;xsd:element name=&quot;root&quot; msdata:IsDataSet=&quot;true&quot;&gt;
+        ///      &lt;xsd:complexType&gt;
+        ///        &lt;xsd:choice maxOccurs=&quot;unbounded&quot;&gt;
+        ///          &lt;xsd:element name=&quot;metadata&quot;&gt;
+        ///            &lt;xsd:complexType&gt;
+        ///              &lt;xsd:sequence&gt;
+        ///                &lt;xsd:element name=&quot;va [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form2_resx {
+            get {
+                return ResourceManager.GetString("Form2_resx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             private System.Windows.Forms.Label lbl{field};.
+        /// </summary>
+        internal static string lblDeclare {
+            get {
+                return ResourceManager.GetString("lblDeclare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             this.lbl{field} = new System.Windows.Forms.Label();.
+        /// </summary>
+        internal static string lblInit {
+            get {
+                return ResourceManager.GetString("lblInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             this.groupBox1.Controls.Add(this.lbl{field});.
+        /// </summary>
+        internal static string lblParent {
+            get {
+                return ResourceManager.GetString("lblParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             // 
+        ///            // lbl{field}
+        ///            // 
+        ///            this.lbl{field}.AutoSize = true;
+        ///            this.lbl{field}.Location = new System.Drawing.Point({left}, {top});
+        ///            this.lbl{field}.Name = &quot;lbl{field}&quot;;
+        ///            this.lbl{field}.Size = new System.Drawing.Size(66, 15);
+        ///            this.lbl{field}.TabIndex = {tabindex};
+        ///            this.lbl{field}.Text = &quot;lbl{field} :&quot;;.
+        /// </summary>
+        internal static string lblProp {
+            get {
+                return ResourceManager.GetString("lblProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System; 
+        ///using Models.Base; 
+        /// 
+        ///namespace Models
+        ///{ 
+        ///     /// &lt;summary&gt;
+        ///     /// This file will not be overwritten. You can put additional {className} model code in this class 
+        ///     /// &lt;/summary&gt;
+        ///     public class {className} : {className}Base 
+        ///     { 
+        ///
+        ///     } 
+        ///} .
+        /// </summary>
+        internal static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using Models;
+        ///using Services.Base;
+        ///using System.Collections.Generic;
+        ///using System.Linq;
+        ///
+        ///namespace Services
+        ///{ 
+        ///     /// &lt;summary&gt;
+        ///     /// This file will not be overwritten. You can put additional {className} code in this class 
+        ///     /// &lt;/summary&gt;
+        ///     public class {className} : {className}Base 
+        ///     { 
+        ///
+        ///     } 
+        ///} .
+        /// </summary>
+        internal static string Service {
+            get {
+                return ResourceManager.GetString("Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.ComponentModel;
+        ///
+        /////////////////////////////////////
+        ////* ENABLE SORT COLUMNS ON GRID */
+        ///////////////////////////////////
+        ///namespace Services.Base
+        ///{
+        ///    public class SortableBindingList&lt;T&gt; : BindingList&lt;T&gt;
+        ///    {
+        ///        private bool isSorted;
+        ///        private ListSortDirection sortDirection;
+        ///        private PropertyDescriptor sortProperty;
+        ///
+        ///        public SortableBindingList() : base() { }
+        ///
+        ///        public SortableBindingList(IList&lt;T&gt; l [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SortableBindingList {
+            get {
+                return ResourceManager.GetString("SortableBindingList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             txt{field}.DataBindings.Add(new Binding(&quot;Text&quot;, this.bindSource, &quot;{fieldL}&quot;, false));.
+        /// </summary>
+        internal static string txtBinding {
+            get {
+                return ResourceManager.GetString("txtBinding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             private System.Windows.Forms.TextBox txt{field};.
+        /// </summary>
+        internal static string txtDeclare {
+            get {
+                return ResourceManager.GetString("txtDeclare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             this.txt{field} = new System.Windows.Forms.TextBox();.
+        /// </summary>
+        internal static string txtInit {
+            get {
+                return ResourceManager.GetString("txtInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             this.groupBox1.Controls.Add(this.txt{field});.
+        /// </summary>
+        internal static string txtParent {
+            get {
+                return ResourceManager.GetString("txtParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             // 
+        ///            // txt{field}
+        ///            // 
+        ///            this.txt{field}.Location = new System.Drawing.Point({left}, {top});
+        ///            this.txt{field}.Name = &quot;txt{field}&quot;;
+        ///            this.txt{field}.Size = new System.Drawing.Size(174, 23);
+        ///            this.txt{field}.TabIndex = {tabindex};.
+        /// </summary>
+        internal static string txtProp {
+            get {
+                return ResourceManager.GetString("txtProp", resourceCulture);
             }
         }
     }

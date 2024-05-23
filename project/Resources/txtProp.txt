@@ -1,0 +1,7 @@
+            // 
+            // txt{field}
+            // 
+            this.txt{field}.Location = new System.Drawing.Point({left}, {top});
+            this.txt{field}.Name = "txt{field}";
+            this.txt{field}.Size = new System.Drawing.Size(174, 23);
+            this.txt{field}.TabIndex = {tabindex};

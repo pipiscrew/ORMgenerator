@@ -1,0 +1,15 @@
+using Models;
+using Services.Base;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Services
+{ 
+     /// <summary>
+     /// This file will not be overwritten. You can put additional {className} code in this class 
+     /// </summary>
+     public class {className} : {className}Base 
+     { 
+
+     } 
+} 

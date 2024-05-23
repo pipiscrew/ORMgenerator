@@ -36,6 +36,7 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.optDapper = new System.Windows.Forms.RadioButton();
             this.optNative = new System.Windows.Forms.RadioButton();
+            this.chkWinForms = new System.Windows.Forms.CheckBox();
             this.groupExport.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,11 +72,11 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(436, 365);
+            this.btnNext.Location = new System.Drawing.Point(349, 365);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(87, 36);
+            this.btnNext.Size = new System.Drawing.Size(174, 36);
             this.btnNext.TabIndex = 4;
-            this.btnNext.Text = ">> next >>";
+            this.btnNext.Text = ">> generate >>";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
@@ -127,11 +128,23 @@
             this.optNative.Text = "DBASEWrapper Reflection";
             this.optNative.UseVisualStyleBackColor = true;
             // 
+            // chkWinForms
+            // 
+            this.chkWinForms.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkWinForms.AutoSize = true;
+            this.chkWinForms.Location = new System.Drawing.Point(381, 322);
+            this.chkWinForms.Name = "chkWinForms";
+            this.chkWinForms.Size = new System.Drawing.Size(142, 25);
+            this.chkWinForms.TabIndex = 6;
+            this.chkWinForms.Text = "export winforms flavor";
+            this.chkWinForms.UseVisualStyleBackColor = true;
+            // 
             // frmTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 406);
+            this.Controls.Add(this.chkWinForms);
             this.Controls.Add(this.groupExport);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnUnAll);
@@ -148,6 +161,7 @@
             this.groupExport.ResumeLayout(false);
             this.groupExport.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -161,5 +175,6 @@
         private System.Windows.Forms.RadioButton optNative;
         private System.Windows.Forms.RadioButton optDapper;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox chkWinForms;
     }
 }

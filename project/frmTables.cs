@@ -125,13 +125,33 @@ namespace ORMgenerator
                 General.Mes("Please select at least one table");
                 return;
             }
+            else if (optDapper.Checked && chkWinForms.Checked)
+            {
+                General.Mes("Dapper & WinForms is not implemented. Operation aborted!");
+                return;
+            }
 
             string baseDir = Application.StartupPath + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + "\\";
+
+            GenerateBase(baseDir);
+
+            System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", baseDir));
+        }
+
+        private void GenerateBase(string baseDir)
+        {
             string folderModel = baseDir + "Models\\";
             string folderService = baseDir + "Services\\";
+            string folderModelBase = baseDir + "Models\\Base\\";
+            string folderServiceBase = baseDir + "Services\\Base\\";
+            string folderServiceBaseHelper = baseDir + "Services\\Base\\Helper\\";
 
-            Directory.CreateDirectory(folderModel);
-            Directory.CreateDirectory(folderService);
+            Directory.CreateDirectory(folderModelBase);
+
+            if (chkWinForms.Checked)
+                Directory.CreateDirectory(folderServiceBaseHelper);
+            else
+                Directory.CreateDirectory(folderServiceBase);
 
             string tableNameNormalized;
             string tableName;
@@ -155,35 +175,134 @@ namespace ORMgenerator
                     //General.Mes("Cannot generate " + tableName, MessageBoxIcon.Exclamation);
                     continue;
                 }
-                
+
+                //ModelBase file
+                File.WriteAllText(folderModelBase + tableNameNormalized + "Base.cs",
+                    GenerateModelFromDataTable(dT, tableNameNormalized, chkWinForms.Checked));
+
                 //Model file
-                File.WriteAllText(folderModel + tableNameNormalized + ".cs",
-                    GenerateModelFromDataTable(dT, tableNameNormalized));
+                File.WriteAllText(folderModel + tableNameNormalized + ".cs", Properties.Resources.Model.Replace("{className}", tableNameNormalized));
+
+                //Service file
+                File.WriteAllText(folderService + tableNameNormalized + "Service.cs", Properties.Resources.Service.Replace("{className}", tableNameNormalized + "Service"));
 
                 if (exportType == ExportAs.dapper)
                 {
                     //Export SERVICE folder for # DAPPER #
-                    File.WriteAllText(folderService + tableNameNormalized + "Service.cs",
+                    File.WriteAllText(folderServiceBase + tableNameNormalized + "ServiceBase.cs",
                         DapperGenerateServiceFromDataTable(dT, tableNameNormalized, tableName, Properties.Resources.DapperServiceTemplate));
                 }
                 else if (exportType == ExportAs.dbasewrapper_reflection)
                 {
                     //Export SERVICE folder for # DBASE Wrapper REFLECTION #
-                    File.WriteAllText(folderService + tableNameNormalized + "Service.cs",
-                        DapperGenerateServiceFromDataTable(dT, tableNameNormalized, tableName, Properties.Resources.DBASEWrapperReflectionServiceTemplate));
+                    File.WriteAllText(folderServiceBase + tableNameNormalized + "ServiceBase.cs",
+                        DapperGenerateServiceFromDataTable(dT, tableNameNormalized, tableName, 
+                        Properties.Resources.DBASEWrapperReflectionServiceTemplate
+                        .Replace("{winformGetListSortFunction}", chkWinForms.Checked ? Properties.Resources.DBASEWrapperReflectionServiceSortFunction : "")
+                        .Replace("{winformGetExportEXCELFunction}", chkWinForms.Checked ? Properties.Resources.DBASEWrapperReflectionServiceExportEXCELFunction : "")));
                 }
+
+                if (chkWinForms.Checked)
+                    GenerateForm(baseDir, tableNameNormalized, GetPrimaryKey(dT), dT);
             }
 
             //constant files
-            File.WriteAllText(folderService + "ICRUDService.cs", Properties.Resources.constICRUDService);
+            File.WriteAllText(folderServiceBase + "ICRUDService.cs", Properties.Resources.constICRUDService);
             File.WriteAllText(baseDir + "DBASEWrapper.cs", Properties.Resources.constDBASEWrapper);
             File.WriteAllText(baseDir + "General.cs", Properties.Resources.constGeneral);
 
+            if (chkWinForms.Checked)
+            {
+                File.WriteAllText(folderModelBase + "ModelBase.cs", Properties.Resources.constModelBase);
+                File.WriteAllText(folderServiceBaseHelper + "SortableBindingList.cs", Properties.Resources.SortableBindingList);
+                File.WriteAllText(folderServiceBaseHelper + "ExcelExport.cs", Properties.Resources.ExcelExport);
+            }
+
             if (!string.IsNullOrEmpty(errors))
                 General.Mes("Cannot generate\r\n\r\n" + errors, MessageBoxIcon.Exclamation);
+        }
+
+        private void GenerateForm(string dir, string entity, string PK, DataTable dT)
+        {
+            //FORM DESINGER
+            string lblDeclare = Properties.Resources.lblDeclare;
+            string lblInit = Properties.Resources.lblInit;
+            string lblParent = Properties.Resources.lblParent;
+            string lblProp = Properties.Resources.lblProp;
+
+            string txtDeclare = Properties.Resources.txtDeclare;
+            string txtInit = Properties.Resources.txtInit;
+            string txtParent = Properties.Resources.txtParent;
+            string txtProp = Properties.Resources.txtProp;
+            string txtBinding = Properties.Resources.txtBinding;
+
+            StringBuilder sbInit = new StringBuilder();
+            StringBuilder sbParent = new StringBuilder();
+            StringBuilder sbProp = new StringBuilder();
+            StringBuilder sbDeclare = new StringBuilder();
+            StringBuilder sbtxtBinding = new StringBuilder();
+
+            int lblTop = 26; int lblLeft =7;
+            int txtTop = 23; int txtLeft = 104;
+            int alltop = 26;
+            int tabIndex = 0;
+
+            foreach (DataColumn column in dT.Columns)
+            {
+                string columnNameCapitalize = UppercaseFirst( column.ColumnName);
+
+                //label
+                sbInit.AppendLine(lblInit.Replace("{field}", columnNameCapitalize));
+                sbDeclare.AppendLine(lblDeclare.Replace("{field}", columnNameCapitalize));
+                sbParent.AppendLine(lblParent.Replace("{field}", columnNameCapitalize));
+                sbProp.AppendLine(lblProp.Replace("{field}", columnNameCapitalize).Replace("{left}", lblLeft.ToString()).Replace("{top}", lblTop.ToString()).Replace("{tabindex}", tabIndex.ToString()));
+
+                //textbox
+                sbInit.AppendLine(txtInit.Replace("{field}", columnNameCapitalize));
+                sbDeclare.AppendLine(txtDeclare.Replace("{field}", columnNameCapitalize));
+                sbParent.AppendLine(txtParent.Replace("{field}", columnNameCapitalize));
+                sbProp.AppendLine(txtProp.Replace("{field}", columnNameCapitalize).Replace("{left}", txtLeft.ToString()).Replace("{top}", txtTop.ToString()).Replace("{tabindex}", tabIndex.ToString()));
+                sbtxtBinding.AppendLine(txtBinding.Replace("{field}", columnNameCapitalize).Replace("{fieldL}", column.ColumnName.ToLower()));
+
+                lblTop += 38;
+                txtTop += 38;
+                alltop += 38;
+                tabIndex++;
+
+                if (alltop >= 256) //226
+                {
+                    lblLeft += 279; lblTop = 26;
+                    txtLeft += 253; txtTop = 23;
+                    alltop = 0;
+                }
+            }
 
 
-            System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", baseDir));
+            string des = Properties.Resources.Form2_designer_cs;
+            des = des.Replace("{entity}", entity);
+            des = des.Replace("{groupCTLS}", sbParent.ToString());
+            des = des.Replace("{lblINIT}", sbInit.ToString());
+            des = des.Replace("{lblPROPS}", sbProp.ToString());
+            des = des.Replace("{lblDECLARE}", sbDeclare.ToString());
+            
+
+
+            File.WriteAllText(dir + "frm" + entity + ".designer.cs", des);
+
+
+            //FORM CODE + RES
+            string code = Properties.Resources.Form2_cs;
+
+            code = code.Replace("{entity}", entity)
+                .Replace("{entityL}", entity.ToLower())
+                .Replace("{PK}", UppercaseFirst(PK))
+                .Replace("{PKL}", PK.ToLower())
+                .Replace("{bindcontrols}", sbtxtBinding.ToString());
+
+            File.WriteAllText(dir + "frm" + entity + ".cs", code);
+            File.WriteAllText(dir + "frm" + entity + ".resx", Properties.Resources.Form2_resx);
+
+
         }
 
         public static string DapperGenerateServiceFromDataTable(DataTable dataTable, string className, string tableName, string serviceTemplate)
@@ -210,7 +329,7 @@ namespace ORMgenerator
             string serviceOutput = serviceTemplate.Replace("{className}", className)
                 .Replace("{outputINSERT}", outputINSERT).Replace("{insertOBJvalues}", insertOBJvalues)
                 .Replace("{outputINSERTgetNewId}", outputINSERTgetNewId).Replace("{outputGetId}", outputGetId).Replace("{primaryKey}", primaryKey)
-                .Replace("{outputGetList}", outputGetList).Replace("{outputUPDATE}", outputUPDATE).Replace("{outputeDELETE}", outputeDELETE);
+                .Replace("{outputGetList}", outputGetList).Replace("{outputUPDATE}", outputUPDATE).Replace("{outputeDELETE}", outputeDELETE).Replace("{titleField}",columnNamesArray[0]);
 
 
             return serviceOutput;
@@ -229,7 +348,7 @@ namespace ORMgenerator
                  return "primarykey_not_found";
         }
 
-        private static string GenerateModelFromDataTable(DataTable dataTable, string className)
+        private static string GenerateModelFromDataTable(DataTable dataTable, string className, bool isWinForms)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -238,10 +357,13 @@ namespace ORMgenerator
 
             sb.AppendLine("using System;");
             sb.AppendLine();
-            sb.AppendLine("namespace Models");
+            sb.AppendLine("namespace Models.Base");
             sb.AppendLine("{");
+            sb.AppendLine(string.Format("    /// <summary>\r\n    /// Base class for {0}.  Do not make changes to this class,\r\n    /// instead, put additional code in the {0} class\r\n    /// </summary>", className));
+            
+            className += "Base";
 
-            sb.AppendLine(string.Format("    public class {0}", className));
+            sb.AppendLine(string.Format("    public class {0}{1}", className, isWinForms ? " : ModelBase" : ""));
             sb.AppendLine("    {");
 
             foreach (DataColumn column in dataTable.Columns)
@@ -331,6 +453,8 @@ namespace ORMgenerator
         {
             return (ExportAs) int.Parse(groupExport.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag.ToString());
         }
+
+
 
     }
 }

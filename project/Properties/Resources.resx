@@ -133,4 +133,61 @@
   <data name="constGeneral" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\constGeneral.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
   </data>
+  <data name="Model" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Model.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="Service" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Service.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="constModelBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\constModelBase.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DBASEWrapperReflectionServiceSortFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DBASEWrapperReflectionServiceSortFunction.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="SortableBindingList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SortableBindingList.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="DBASEWrapperReflectionServiceExportEXCELFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DBASEWrapperReflectionServiceExportEXCELFunction.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="ExcelExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExcelExport.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="Form2_cs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form2.cs.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Form2_designer_cs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form2.designer.cs.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Form2_resx" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form2.resx.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="lblDeclare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lblDeclare.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="lblInit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lblInit.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="lblParent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lblParent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="lblProp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lblProp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="txtBinding" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtBinding.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="txtDeclare" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtDeclare.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="txtInit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtInit.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="txtParent" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtParent.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="txtProp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\txtProp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
 </root>
