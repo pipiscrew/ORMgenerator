@@ -37,6 +37,7 @@
             this.optDapper = new System.Windows.Forms.RadioButton();
             this.optNative = new System.Windows.Forms.RadioButton();
             this.chkWinForms = new System.Windows.Forms.CheckBox();
+            this.chkWinFormsDevExpress = new System.Windows.Forms.CheckBox();
             this.groupExport.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,7 +88,7 @@
             this.groupExport.Controls.Add(this.optNative);
             this.groupExport.Location = new System.Drawing.Point(335, 81);
             this.groupExport.Name = "groupExport";
-            this.groupExport.Size = new System.Drawing.Size(188, 206);
+            this.groupExport.Size = new System.Drawing.Size(188, 153);
             this.groupExport.TabIndex = 5;
             this.groupExport.TabStop = false;
             this.groupExport.Text = "export method :";
@@ -132,18 +133,32 @@
             // 
             this.chkWinForms.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkWinForms.AutoSize = true;
-            this.chkWinForms.Location = new System.Drawing.Point(381, 322);
+            this.chkWinForms.Location = new System.Drawing.Point(381, 263);
             this.chkWinForms.Name = "chkWinForms";
             this.chkWinForms.Size = new System.Drawing.Size(142, 25);
             this.chkWinForms.TabIndex = 6;
             this.chkWinForms.Text = "export winforms flavor";
             this.chkWinForms.UseVisualStyleBackColor = true;
+            this.chkWinForms.CheckedChanged += new System.EventHandler(this.chkWinForms_CheckedChanged);
+            // 
+            // chkWinFormsDevExpress
+            // 
+            this.chkWinFormsDevExpress.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkWinFormsDevExpress.AutoSize = true;
+            this.chkWinFormsDevExpress.Enabled = false;
+            this.chkWinFormsDevExpress.Location = new System.Drawing.Point(445, 294);
+            this.chkWinFormsDevExpress.Name = "chkWinFormsDevExpress";
+            this.chkWinFormsDevExpress.Size = new System.Drawing.Size(78, 25);
+            this.chkWinFormsDevExpress.TabIndex = 7;
+            this.chkWinFormsDevExpress.Text = "devexpress";
+            this.chkWinFormsDevExpress.UseVisualStyleBackColor = true;
             // 
             // frmTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 406);
+            this.Controls.Add(this.chkWinFormsDevExpress);
             this.Controls.Add(this.chkWinForms);
             this.Controls.Add(this.groupExport);
             this.Controls.Add(this.btnNext);
@@ -176,5 +191,6 @@
         private System.Windows.Forms.RadioButton optDapper;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.CheckBox chkWinForms;
+        private System.Windows.Forms.CheckBox chkWinFormsDevExpress;
     }
 }

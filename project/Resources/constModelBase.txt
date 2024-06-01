@@ -53,6 +53,9 @@ namespace Models.Base
 
         private void RevertObject()
         {
+            if (m_oOldVersion == null)
+                return;
+
             Type t = this.GetType();
             foreach (var p in t.GetProperties())
             {

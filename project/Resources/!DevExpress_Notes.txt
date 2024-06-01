@@ -1,0 +1,73 @@
+# XTRAGRID - MINIMAL REFERENCES
+/*
+DevExpress.Data.Desktop.v23.2.dll
+DevExpress.Data.v23.2.dll
+DevExpress.Drawing.v23.2.dll
+DevExpress.Office.v23.2.Core.dll
+DevExpress.Printing.v23.2.Core.dll
+DevExpress.Sparkline.v23.2.Core.dll
+DevExpress.Utils.v23.2.dll
+DevExpress.XtraBars.v23.2.dll
+DevExpress.XtraEditors.v23.2.dll
+DevExpress.XtraGrid.v23.2.dll
+DevExpress.XtraLayout.v23.2.dll
+*/
+
+# CLASS PROPERTY ATTRIBUTE
+        [DisplayName("Supplier")]
+        public Int64? supplierid { get; set; }
+		
+# EXPORT GRID
+            dg.ExportToXlsx("test.xlsx");
+            dg.ExportToPdf("test.pdf");
+            dg.ExportToCsv("test.csv");
+			dg.ExportToDocx("test.docx");//needs DevExpress.RichEdit.v23.2.Export.dll
+            //is a bug?, truncate the values on HTML export!
+			//https://supportcenter.devexpress.com/ticket/details/t715214/xtragrid-cell-contents-is-truncated-when-exporting-to-html
+            // FIX === the columns must have the needed width otherwise the export truncate
+            //
+            dg.ExportToHtml("test.html");
+
+
+# MASTER-DETAIL
+//grid row child via dataset - https://supportcenter.devexpress.com/ticket/details/t828641/set-up-a-grid-with-master-detail-child-gridview-a-data-source
+//https://docs.devexpress.com/WPF/11834/controls-and-libraries/data-grid/master-detail-data-representation
+
+# GRID CONTEXT MENU
+//https://supportcenter.devexpress.com/ticket/details/t284211/easiest-way-to-create-context-menu-over-gridcontrol
+
+# GROUP SUMMARIES
+//https://docs.devexpress.com/WindowsForms/114625/controls-and-libraries/data-grid/getting-started/walkthroughs/summaries/tutorial-group-summaries
+
+# EVENT
+//attach event on update button clicked
+            gridView1.RowUpdated += gridView1_RowUpdated;
+			
+        void gridView1_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
+        {   //https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Base.ColumnView.RowUpdated
+            //Console.WriteLine(e.RowHandle < 0);
+            //Customer x = (Customer) e.Row;
+            
+            //if (x.customerid==0)
+            //   x.customerid= customerService.InsertReturnId(x);
+            //else 
+            //{
+            //    //Console.WriteLine(x.companyname);
+            //     if (!customerService.Update(x))
+            //    {
+            //        General.Mes("Update is not performed!\r\n\r\nContact support!", MessageBoxIcon.Exclamation);
+            //        return;
+            //    }
+            //}
+        }
+		
+	//when to validate 
+	//https://supportcenter.devexpress.com/ticket/details/s172833/provide-the-editformclosing-event
+	//
+	//event (no tested)
+	//https://supportcenter.devexpress.com/ticket/details/q574338/edit-form-how-to-handle-the-update-button-click
+	//??https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Base.ColumnView.UpdateCurrentRow
+	//
+	//this occurs per field on editForm
+	//gridView1.ValidatingEditor += gridView1_ValidatingEditor;
+	

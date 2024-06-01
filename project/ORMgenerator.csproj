@@ -73,8 +73,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Resources\!DevExpress_Notes.txt" />
     <Content Include="Resources\constGeneral.txt" />
     <Content Include="Resources\constDBASEWrapper.txt" />
+    <None Include="Resources\Form3devexpress_designer.cs.txt" />
+    <None Include="Resources\Form3devexpress.resx.txt" />
+    <None Include="Resources\Form3devexpress.cs.txt" />
     <None Include="Resources\txtBinding.txt" />
     <None Include="Resources\txtProp.txt" />
     <None Include="Resources\txtParent.txt" />

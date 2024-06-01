@@ -203,7 +203,12 @@ namespace ORMgenerator
                 }
 
                 if (chkWinForms.Checked)
-                    GenerateForm(baseDir, tableNameNormalized, GetPrimaryKey(dT), dT);
+                {
+                    if (chkWinFormsDevExpress.Checked)
+                        GenerateFormDevExpress(baseDir, tableNameNormalized, GetPrimaryKey(dT), dT);
+                    else 
+                        GenerateForm(baseDir, tableNameNormalized, GetPrimaryKey(dT), dT);
+                }
             }
 
             //constant files
@@ -216,10 +221,33 @@ namespace ORMgenerator
                 File.WriteAllText(folderModelBase + "ModelBase.cs", Properties.Resources.constModelBase);
                 File.WriteAllText(folderServiceBaseHelper + "SortableBindingList.cs", Properties.Resources.SortableBindingList);
                 File.WriteAllText(folderServiceBaseHelper + "ExcelExport.cs", Properties.Resources.ExcelExport);
+
+                if (chkWinFormsDevExpress.Checked)
+                    File.WriteAllText(baseDir + "!DevExpress_Notes.txt", Properties.Resources.DevExpress_Notes);
             }
 
             if (!string.IsNullOrEmpty(errors))
                 General.Mes("Cannot generate\r\n\r\n" + errors, MessageBoxIcon.Exclamation);
+        }
+
+        private void GenerateFormDevExpress(string dir, string entity, string PK, DataTable dT)
+        {
+            //FORM DESINGER
+            string des = Properties.Resources.Form3devexpress_designer_cs;
+            des = des.Replace("{entity}", entity);
+
+            File.WriteAllText(dir + "frm" + entity + ".designer.cs", des);
+
+            //FORM CODE + RES
+            string code = Properties.Resources.Form3devexpress_cs;
+
+            code = code.Replace("{entity}", entity)
+                .Replace("{entityL}", entity.ToLower())
+                .Replace("{PK}", UppercaseFirst(PK))
+                .Replace("{PKL}", PK.ToLower());
+
+            File.WriteAllText(dir + "frm" + entity + ".cs", code);
+            File.WriteAllText(dir + "frm" + entity + ".resx", Properties.Resources.Form3devexpress_resx);
         }
 
         private void GenerateForm(string dir, string entity, string PK, DataTable dT)
@@ -452,6 +480,14 @@ namespace ORMgenerator
         private ExportAs GetExportUserSelection()
         {
             return (ExportAs) int.Parse(groupExport.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked).Tag.ToString());
+        }
+
+        private void chkWinForms_CheckedChanged(object sender, EventArgs e)
+        {
+            chkWinFormsDevExpress.Enabled = chkWinForms.Checked;
+
+            if (!chkWinForms.Checked)
+                chkWinFormsDevExpress.Checked = false;
         }
 
 

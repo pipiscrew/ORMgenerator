@@ -1,0 +1,91 @@
+﻿using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
+using Models;
+using Services;
+using System;
+using System.Windows.Forms;
+
+namespace Forms
+{
+    public partial class frm{entity} : Form
+    {
+        private {entity}Service {entityL}Service = new {entity}Service();
+        //private SupplierService supplierService = new SupplierService();   // dummy service for combos
+
+        public frm{entity}()
+        {
+            InitializeComponent();
+        }
+    
+        private void frm{entity}_Load(object sender, EventArgs e)
+        {
+            //master! dont forget @ Program.cs MUST run :
+			//General.db = new DBASEWrapper(new SQLiteConnection(@"Data Source=c:\northwind.db;Version=3"));
+			
+            //disable to do white *cell* BG on select row
+            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+
+            //fillgrid
+            dg.DataSource = {entityL}Service.GetListSortable();
+
+			////dummy code for combos
+            ////https://supportcenter.devexpress.com/ticket/details/t611236/how-to-show-a-drop-down-list-in-edit-form
+            ////add repo item for Suppliers table
+            //RepositoryItemLookUpEdit edit = new RepositoryItemLookUpEdit();
+            //edit.DataSource = supplierService.GetComboList();
+            //edit.ValueMember = "supplierid";
+            //edit.DisplayMember = "companyname";
+            //edit.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("companyname")); //same as DisplayMember
+            //dg.RepositoryItems.Add(edit);
+
+            ////attach supplier repo to Products table
+            //gridView1.Columns["supplierid"].ColumnEdit = edit;
+
+            //remove customerID by editform
+            gridView1.Columns[0].OptionsEditForm.Visible = DevExpress.Utils.DefaultBoolean.False;
+
+            //enable group header summation -- https://supportcenter.devexpress.com/ticket/details/q446051/how-to-show-a-group-row-count-in-a-grid
+            gridView1.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, string.Empty);  
+
+            //attach event on update button clicked
+            gridView1.ValidateRow += gridView1_ValidateRow;
+            gridView1.InvalidRowException += gridView1_InvalidRowException;
+
+            //allow to add new row
+            gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
+            gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
+        }
+
+        void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            //Suppress displaying the default devx.datagrid error messagebox "Do you want to correct the value"
+            e.ExceptionMode = ExceptionMode.NoAction;
+        }
+
+        void gridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
+        { // https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Base.ColumnView.ValidateRow
+             {entity} x = ({entity}) e.Row;
+
+             ////////////////////////////////////////////validation
+             //if (string.IsNullOrEmpty(x.{PK})) //replace with required fields
+             //{
+             //    e.Valid = false;
+             //    General.Mes("please fill required fields");
+             //}
+
+             ////////////////////////////////////////////database logic
+             if (x.{PKL} == 0)  //when new row always the ID is 0
+                 x.{PKL} = {entityL}Service.InsertReturnId(x);
+             else
+             {
+                 if (!{entityL}Service.Update(x))
+                 {
+                     e.Valid = false;
+                     General.Mes("Update is not performed!\r\n\r\nContact support!", MessageBoxIcon.Exclamation);
+                     return;
+                 }
+             }
+        }
+
+    }
+}

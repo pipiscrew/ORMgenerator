@@ -242,6 +242,33 @@ namespace ORMgenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # XTRAGRID - MINIMAL REFERENCES
+        ////*
+        ///DevExpress.Data.Desktop.v23.2.dll
+        ///DevExpress.Data.v23.2.dll
+        ///DevExpress.Drawing.v23.2.dll
+        ///DevExpress.Office.v23.2.Core.dll
+        ///DevExpress.Printing.v23.2.Core.dll
+        ///DevExpress.Sparkline.v23.2.Core.dll
+        ///DevExpress.Utils.v23.2.dll
+        ///DevExpress.XtraBars.v23.2.dll
+        ///DevExpress.XtraEditors.v23.2.dll
+        ///DevExpress.XtraGrid.v23.2.dll
+        ///DevExpress.XtraLayout.v23.2.dll
+        ///*/
+        ///
+        ///# CLASS PROPERTY ATTRIBUTE
+        ///        [DisplayName(&quot;Supplier&quot;)]
+        ///        public Int64? supplierid { get; set; }
+        ///		 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DevExpress_Notes {
+            get {
+                return ResourceManager.GetString("DevExpress_Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to using System;
         ///using System.Collections.Generic;
         ///using System.ComponentModel;
@@ -276,7 +303,7 @@ namespace ORMgenerator.Properties {
         ///    public partial class frm{entity} : Form
         ///    {
         ///        private {entity}Service {entityL}Service = new {entity}Service();
-        ///        //private SupplierService supplierService = new SupplierService();  // dummy method for combos
+        ///        //private SupplierService supplierService = new SupplierService();  // dummy service for combos
         ///
         ///        private BindingSource bindSource;
         ///
@@ -285,7 +312,7 @@ namespace ORMgenerator.Properties {
         ///            InitializeComponent();
         ///        }
         ///
-        ///        private void frm{entity}_Load(object s [rest of string was truncated]&quot;;.
+        ///        private void frm{entity}_Load(object  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form2_cs {
             get {
@@ -333,6 +360,77 @@ namespace ORMgenerator.Properties {
         internal static string Form2_resx {
             get {
                 return ResourceManager.GetString("Form2_resx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using DevExpress.XtraEditors.Controls;
+        ///using DevExpress.XtraEditors.Repository;
+        ///using Models;
+        ///using Services;
+        ///using System;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace Forms
+        ///{
+        ///    public partial class frm{entity} : Form
+        ///    {
+        ///        private {entity}Service {entityL}Service = new {entity}Service();
+        ///        //private SupplierService supplierService = new SupplierService();   // dummy service for combos
+        ///
+        ///        public frm{entity}()
+        ///        {
+        ///            InitializeComponent();
+        ///        }
+        ///    
+        ///    [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form3devexpress_cs {
+            get {
+                return ResourceManager.GetString("Form3devexpress_cs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to namespace Forms
+        ///{
+        ///    partial class frm{entity}
+        ///    {
+        ///        /// &lt;summary&gt;
+        ///        /// Required designer variable.
+        ///        /// &lt;/summary&gt;
+        ///        private System.ComponentModel.IContainer components = null;
+        ///
+        ///        /// &lt;summary&gt;
+        ///        /// Clean up any resources being used.
+        ///        /// &lt;/summary&gt;
+        ///        /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
+        ///        protected override void Dispose(bool disposing)
+        ///        {
+        ///            if (disposi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form3devexpress_designer_cs {
+            get {
+                return ResourceManager.GetString("Form3devexpress_designer_cs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;root&gt;
+        ///  &lt;xsd:schema id=&quot;root&quot; xmlns=&quot;&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+        ///    &lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; /&gt;
+        ///    &lt;xsd:element name=&quot;root&quot; msdata:IsDataSet=&quot;true&quot;&gt;
+        ///      &lt;xsd:complexType&gt;
+        ///        &lt;xsd:choice maxOccurs=&quot;unbounded&quot;&gt;
+        ///          &lt;xsd:element name=&quot;metadata&quot;&gt;
+        ///            &lt;xsd:complexType&gt;
+        ///              &lt;xsd:sequence&gt;
+        ///                &lt;xsd:element name=&quot;va [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Form3devexpress_resx {
+            get {
+                return ResourceManager.GetString("Form3devexpress_resx", resourceCulture);
             }
         }
         
