@@ -69,14 +69,19 @@ namespace ORMgenerator
                     //if there is owner.table (jess.customer) and want to be enclosed as "juess"."customer"
                     //but do a favor to youself, quit your job if using ORACLE at 2023.
                     break;
-                case dbType.sqlserver:
-                case dbType.sqlserver_integrated:
+				case dbType.sqlserver:
+				case dbType.sqlserver_integrated:
+					DBtypeProperties.encloser = "[{0}]";
+					DBtypeProperties.selectSQLgetLastId = "SELECT @@IDENTITY";
+					DBtypeProperties.selectSQL = "SELECT TOP 1 * FROM [{0}];";
+					dt = General.db.GetDataTable("SELECT table_name FROM information_schema.tables WHERE table_type = 'base table'");
+					break;
                 case dbType.adonet_for_accdb:
                 case dbType.adonet_for_mdb:
                 case dbType.adonet_for_xls:
                 case dbType.adonet_for_xlsx:
                     DBtypeProperties.encloser = "[{0}]";
-                    DBtypeProperties.selectSQLgetLastId = "SELECT @@IDENTITY"; //only for SQLSERVER
+                    DBtypeProperties.selectSQLgetLastId = "";
                     DBtypeProperties.selectSQL = "SELECT TOP 1 * FROM [{0}];";
                     break;
                 default:

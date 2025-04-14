@@ -147,6 +147,7 @@ Any new provider can be added in 3 simple steps
 The following databases tested & working : 
 * sqlite
 * mysql
+* sql server
 * oracle (user have to download the managed oracle dll, have instruction in the code)
 
 on *file-based databases*, user is able to *drag & drop* the file to the form.  
