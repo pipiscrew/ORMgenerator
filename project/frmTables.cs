@@ -396,7 +396,7 @@ namespace ORMgenerator
 
             foreach (DataColumn column in dataTable.Columns)
             {
-                string columnName = column.ColumnName.ToLower();
+                string columnName = column.ColumnName.ToLower().Replace(" ", "_");
                 string columnType = FixDataTypeUppercase(column.DataType.Name);
                 bool allowDBNull = column.AllowDBNull;
 

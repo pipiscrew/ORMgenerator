@@ -315,6 +315,10 @@ public class DBASEWrapper : IDisposable
                     IDbDataParameter parameter = sqlco.CreateParameter();
                     parameter.ParameterName = property.Name;
                     parameter.Value = property.GetValue(model);
+					
+					if (parameter.Value == null)
+						parameter.Value = DBNull.Value;
+					
                     sqlco.Parameters.Add(parameter);
                 }
 
