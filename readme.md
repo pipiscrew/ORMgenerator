@@ -156,4 +156,6 @@ greets to [Hytm/CockroachDB-Dapper-Example](https://github.com/Hytm/CockroachDB-
 
 ---
 
-alternative [FreeSql](https://github.com/dotnetcore/FreeSql)
+alternative :  
+* [FreeSql](https://github.com/dotnetcore/FreeSql)
+* [Micron](https://github.com/KimTooFlex/Micron-ORM) - for mysql
