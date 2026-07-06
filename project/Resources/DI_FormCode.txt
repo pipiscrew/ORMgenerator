@@ -1,0 +1,189 @@
+using App.Helpers;
+using App.Interfaces.Services;
+using Domain;
+using Serilog;
+using System;
+using System.Windows.Forms;
+
+namespace App.Dialogs
+{
+    public partial class frm{entity} : Form
+    {
+        private BindingSource bindSource;
+
+        private readonly ILogger _logger;
+        private readonly I{entity}Service _{entityL}Service;
+        //private readonly ISupplierService _supplierService; // dummy service for combos
+
+        //public frm{entity}(ILogger logger, I{entity}Service {entityL}Service, ISupplierService supplierService)
+        public frm{entity}(ILogger logger, I{entity}Service {entityL}Service)
+        {
+            InitializeComponent();
+           
+            this._logger = logger;
+            this._{entityL}Service = {entityL}Service;
+
+            _logger.Information("{entity} Form initialized");
+        }
+
+        private void frm{entity}_Load(object sender, EventArgs e)
+        {
+            //master! dont forget @ Program.cs MUST run :
+            //General.db = new DBASEWrapper(new SQLiteConnection(@"Data Source=c:\northwind.db;Version=3"));
+            //
+            //FillSuppliers(); //dummy method for combos
+            FillGrid();
+        }
+
+        private async void FillGrid()
+        {
+            dg.SuspendLayout();
+            dg.DataSource = null;
+            bindSource = new BindingSource();
+
+            //var data = (await _{entityL}Service.GetListAsync()).ToList();
+            var {entityL}List = await _{entityL}Service.GetListAsync();
+            bindSource.DataSource = {entityL}List.ToSortableBindingList();
+
+            dg.DataSource = bindSource;
+            dg.ResumeLayout();
+
+            BIND();
+        }
+
+        //private async void FillSuppliers()  //dummy method for combos
+        //{
+        //    txtSupplierID.DataSource = await _supplierService.GetComboListAsync();
+        //    txtSupplierID.DisplayMember = "title";
+        //    txtSupplierID.ValueMember = "id";
+        //}
+
+        private void BIND()
+        {
+{bindcontrols}
+
+            //for combos this must be TRUE, otherwise on lost_focus returns to dbase value! - similar -- https://developer.mescius.com/forums/winforms-edition/combobox-binding
+            //txtSupplierID.DataBindings.Add(new Binding("SelectedValue", this.bindSource, "SupplierID", true));
+        }
+
+        private async void btnNew_Click(object sender, EventArgs e)
+        {
+            if (btnNew.Text.Equals("new"))
+            {
+                dg.Enabled = btnEdit.Enabled = false;
+                groupBox1.Enabled = true;
+                btnNew.Text = "save";
+                btnDelete.Text = "cancel";
+
+                bindSource.AddNew();
+
+                txt{PK}.Focus();
+            }
+            else
+            {
+                //dummy validation for combos
+                //if (txtSupplierID.SelectedValue == null)
+                //{
+                //    General.Mes("cmdSupplierID.SelectedValue is null");
+                //    return;
+                //}
+
+                //return the newly table ID as result, stored to bindSource collection!
+                txt{PK}.Text = (await _{entityL}Service.InsertReturnIdAsync(({entity})bindSource.Current)).ToString();
+
+                // Commit any pending changes to bindingsource ( in memory )
+                bindSource.EndEdit();
+
+                ResetActionButtons();
+            }
+        }
+
+        private async void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (btnEdit.Text.Equals("edit"))
+            {
+                dg.Enabled = btnNew.Enabled = false;
+                groupBox1.Enabled = true;
+                btnEdit.Text = "update";
+                btnDelete.Text = "cancel";
+            }
+            else
+            {
+                //use the bindsource *current object* to update the dbase!
+                var res = await _{entityL}Service.UpdateAsync(({entity})bindSource.Current);
+                if (!res)
+                {
+                    General.Mes("Update is not performed!\r\n\r\nContact support!", MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                // Commit any pending changes to bindingsource ( in memory )
+                bindSource.EndEdit();
+
+                ResetActionButtons();
+            }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (btnDelete.Text.Equals("cancel"))
+            {
+                bindSource.CancelEdit();
+                ResetActionButtons();
+            }
+            else
+            {
+                //delete logic
+                {entity} obj = ({entity})bindSource.Current;
+                if (General.Mes("Delete " + obj.{PKL} + " ?", MessageBoxIcon.Information, MessageBoxButtons.YesNoCancel) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    var res = await _{entityL}Service.DeleteAsync(obj.{PKL});
+
+                    if (res)
+                        bindSource.Remove(bindSource.Current);
+                    else
+                        General.Mes("Could not delete the record.\r\n\r\nContact support!");
+                }
+            }
+        }
+
+        private void ResetActionButtons()
+        {
+            dg.Enabled = btnEdit.Enabled = btnNew.Enabled = true;
+            groupBox1.Enabled = false;
+            btnNew.Text = "new";
+            btnEdit.Text = "edit";
+            btnDelete.Text = "delete";
+        }
+
+        private async void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
+                e.Handled = true;
+
+                dg.SuspendLayout();
+
+                var {entityL}List = await _{entityL}Service.GetListAsync(txtSearch.Text.Trim());
+                bindSource.DataSource = {entityL}List.ToSortableBindingList();
+                
+                dg.ResumeLayout();
+
+                Cursor = System.Windows.Forms.Cursors.Default;
+            }
+        }
+
+        private async void btnExport_Click(object sender, EventArgs e)
+        {
+            Cursor = System.Windows.Forms.Cursors.WaitCursor;
+
+            var dt = await _{entityL}Service.GetDatatableAsync();
+
+            General.Export2Excel(dt, "{entity}s");
+
+            Cursor = System.Windows.Forms.Cursors.Default;
+        }
+    }
+}

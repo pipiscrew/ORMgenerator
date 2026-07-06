@@ -79,7 +79,7 @@ namespace ORMgenerator.Properties {
         ///        }
         ///        catch (Exception ex)
         ///        {
-        ///            General.Mes(ex.Message + &quot;\r\n\r\n&quot; + (ex.InnerException == null ? &quot;&quot; : ex.InnerException.Message), System.Wind [rest of string was truncated]&quot;;.
+        ///            General.Mes(ex.Message + &quot;\r\n\r\n&quot; + (ex.InnerException == null ? &quot;&quot; : ex.InnerException.Message), System.Windows.Forms.MessageB [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string constDBASEWrapper {
             get {
@@ -149,7 +149,7 @@ namespace ORMgenerator.Properties {
         ///    [Serializable]
         ///    public abstract class ModelBase : IEditableObject
         ///    {
-        ///       [rest of string was truncated]&quot;;.
+        ///        protected M [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string constModelBase {
             get {
@@ -175,7 +175,8 @@ namespace ORMgenerator.Properties {
         ///            return result &gt; 0;
         ///        }
         ///
-        ///        public long InsertReturnId({classNa [rest of string was truncated]&quot;;.
+        ///        public long InsertReturnId({className} obj)
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DapperServiceTemplate {
             get {
@@ -206,7 +207,7 @@ namespace ORMgenerator.Properties {
         ///            var command = @&quot;{outputGetList}&quot;;
         ///
         ///            if (searchLike.Length &gt; 0)
-        ///                return new SortableBindingList&lt;{className}&gt;(General.db.Query&lt;{className}&gt;(command).Where(item =&gt; item.GetType().GetProperties().Any(prop =&gt; prop.PropertyType == typeof(string) &amp;&amp; prop.GetValue(item, null) != null &amp;&amp; prop.GetValue(item, null).ToString().IndexOf(searchLike, StringComparison.OrdinalIgnoreCa [rest of string was truncated]&quot;;.
+        ///                return new SortableBindingList&lt;{className}&gt;(General.db.Query&lt;{className}&gt;(command).Where(item =&gt; item.GetType().GetProperties().Any(prop =&gt; prop.PropertyType == typeof(string) &amp;&amp; prop.GetValue(item, null) != null &amp;&amp; prop.GetValue(item, null).ToString().IndexOf(searchLike, StringComparison.OrdinalIgnoreCase) &gt;=  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DBASEWrapperReflectionServiceSortFunction {
             get {
@@ -233,7 +234,8 @@ namespace ORMgenerator.Properties {
         ///        }
         ///
         ///        public long InsertReturnId({className} obj)
-        ///  [rest of string was truncated]&quot;;.
+        ///        {
+        ///          [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DBASEWrapperReflectionServiceTemplate {
             get {
@@ -260,11 +262,530 @@ namespace ORMgenerator.Properties {
         ///# CLASS PROPERTY ATTRIBUTE
         ///        [DisplayName(&quot;Supplier&quot;)]
         ///        public Int64? supplierid { get; set; }
-        ///		 [rest of string was truncated]&quot;;.
+        ///		
+        ///# EXPORT GRID
+        ///    [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DevExpress_Notes {
             get {
                 return ResourceManager.GetString("DevExpress_Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;configuration&gt;
+        ///  &lt;appSettings&gt;
+        ///    &lt;add key=&quot;dbase&quot; value=&quot;{connection_string}&quot; /&gt;
+        ///  &lt;/appSettings&gt;
+        ///  &lt;startup&gt;
+        ///    &lt;supportedRuntime version=&quot;v4.0&quot; sku=&quot;.NETFramework,Version=v4.6.2&quot;/&gt;
+        ///  &lt;/startup&gt;
+        ///&lt;/configuration&gt;
+        ///.
+        /// </summary>
+        internal static string DI_appConfig {
+            get {
+                return ResourceManager.GetString("DI_appConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Helpers;
+        ///using App.Interfaces.Services;
+        ///using DevExpress.XtraEditors.Controls;
+        ///using Domain;
+        ///using Serilog;
+        ///using System;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace App.Dialogs
+        ///{
+        ///    public partial class frm{entity} : Form
+        ///    {
+        ///        private readonly ILogger _logger;
+        ///        private readonly I{entity}Service _{entityL}Service;
+        ///        //private readonly ISupplierService _supplierService; // dummy service for combos
+        ///
+        ///        //public frm{entity}(ILogger logger, I{entity}Service {enti [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_devexpressCode {
+            get {
+                return ResourceManager.GetString("DI_devexpressCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Helpers;
+        ///using App.Interfaces.Services;
+        ///using Domain;
+        ///using Serilog;
+        ///using System;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace App.Dialogs
+        ///{
+        ///    public partial class frm{entity} : Form
+        ///    {
+        ///        private BindingSource bindSource;
+        ///
+        ///        private readonly ILogger _logger;
+        ///        private readonly I{entity}Service _{entityL}Service;
+        ///        //private readonly ISupplierService _supplierService; // dummy service for combos
+        ///
+        ///        //public frm{entity}(ILogger logger, I{entity}Service  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_FormCode {
+            get {
+                return ResourceManager.GetString("DI_FormCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # REFERENCES
+        ///* Dapper.dll (https://www.nuget.org/packages/Dapper/2.1.35)
+        ///* Microsoft.Bcl.AsyncInterfaces.dll (https://www.nuget.org/packages/Microsoft.Bcl.AsyncInterfaces/8.0.0)
+        ///* Microsoft.Extensions.DependencyInjection.Abstractions.dll (https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0)
+        ///* Microsoft.Extensions.DependencyInjection.dll (https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/8.0.0)
+        ///* System.Threading.Tasks.Extensions.dll (https:// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_Notes {
+            get {
+                return ResourceManager.GetString("DI_Notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Dialogs;
+        ///using App.Interfaces.Services;
+        ///using Microsoft.Extensions.DependencyInjection;
+        ///using Serilog;
+        ///using System;
+        ///using System.IO;
+        ///using System.Net;
+        ///using System.Threading.Tasks;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace WindowsFormsApplication12
+        ///{
+        ///    static class Program
+        ///    {
+        ///        /// &lt;summary&gt;
+        ///        /// The main entry point for the application.
+        ///        /// &lt;/summary&gt;
+        ///        [STAThread]
+        ///        static void Main()
+        ///        {
+        ///            // Create a service collection
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_ProgramCS {
+            get {
+                return ResourceManager.GetString("DI_ProgramCS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Interfaces.Repositories;
+        ///using Dapper;
+        ///using Domain;
+        ///using Infrastructure.Database.Common;
+        ///using Infrastructure.Database.Repositories;
+        ///using System.Collections.Generic;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Repositories
+        ///{
+        ///    /// &lt;summary&gt;
+        ///    /// This file will not be overwritten. You can put additional {className}Repository code in this class 
+        ///    /// &lt;/summary&gt;
+        ///    public class {className}Repository : {className}RepositoryBase, I{className}Repository
+        ///    {
+        ///        public { [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_Repository {
+            get {
+                return ResourceManager.GetString("DI_Repository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Interfaces.Repositories;
+        ///using Dapper;
+        ///using Domain;
+        ///using Infrastructure.Database.Common;
+        ///using System;
+        ///using System.Collections.Generic;
+        ///using System.Data;
+        ///using System.Linq;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace Infrastructure.Database.Repositories
+        ///{
+        ///    public class {className}RepositoryBase : I{className}Repository
+        ///    {
+        ///        protected readonly IConnectionFactory _connectionFactory;
+        ///
+        ///        public {className}RepositoryBase(IConnectionFactory connectionFactory)
+        ///         [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_RepositoryBase {
+            get {
+                return ResourceManager.GetString("DI_RepositoryBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using Domain;
+        ///using System.Collections.Generic;
+        ///using System.Data;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Interfaces.Repositories
+        ///{
+        ///    public interface I{className}Repository
+        ///    {
+        ///         Task&lt;IEnumerable&lt;{className}&gt;&gt; GetListAsync(string searchLike = &quot;&quot;);
+        ///         Task&lt;long&gt; InsertReturnIdAsync({className} obj);
+        ///         Task&lt;bool&gt; UpdateAsync({className} obj);
+        ///         Task&lt;bool&gt; DeleteAsync(long id);
+        ///         Task&lt;{className}&gt; GetAsync(long id);
+        ///         Task&lt;List&lt;{className}&gt;&gt; Get [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_RepositoryInterface {
+            get {
+                return ResourceManager.GetString("DI_RepositoryInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Interfaces.Repositories;
+        ///using Domain;
+        ///using System.Collections.Generic;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Services
+        ///{
+        ///    /// &lt;summary&gt;
+        ///    /// This file will not be overwritten. You can put additional {className}Service code in this class 
+        ///    /// &lt;/summary&gt;
+        ///    public class {className}Service : {className}ServiceBase
+        ///    {
+        ///        public {className}Service(I{className}Repository {classNameLowerCase}Repository) : base({classNameLowerCase}Repository) { }
+        ///
+        ///        //user cu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_Service {
+            get {
+                return ResourceManager.GetString("DI_Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Interfaces.Repositories;
+        ///using App.Interfaces.Services;
+        ///using Domain;
+        ///using System;
+        ///using System.Collections.Generic;
+        ///using System.Data;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Services
+        ///{
+        ///    public class {className}ServiceBase : I{className}Service
+        ///    {
+        ///        protected readonly I{className}Repository _{classNameLowerCase}Repository;
+        ///
+        ///        public {className}ServiceBase(I{className}Repository {classNameLowerCase}Repository)
+        ///        {
+        ///            this._{classNameLowerCase} [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_ServiceBase {
+            get {
+                return ResourceManager.GetString("DI_ServiceBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using Domain;
+        ///using System.Collections.Generic;
+        ///using System.Data;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Interfaces.Services
+        ///{
+        ///    public interface I{className}Service
+        ///    {
+        ///        Task&lt;IEnumerable&lt;{className}&gt;&gt; GetListAsync(string searchLike = &quot;&quot;);
+        ///        Task&lt;long&gt; InsertReturnIdAsync({className} obj);
+        ///        Task&lt;bool&gt; UpdateAsync({className} obj);
+        ///        Task&lt;bool&gt; DeleteAsync(long id);
+        ///        Task&lt;{className}&gt; GetAsync(long id);
+        ///        Task&lt;List&lt;{className}&gt;&gt; GetComboListAsyn [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_ServiceInterface {
+            get {
+                return ResourceManager.GetString("DI_ServiceInterface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to             services.AddSingleton&lt;I{className}Repository, {className}Repository&gt;(sp =&gt;
+        ///            {
+        ///                var connectionFactory = sp.GetRequiredKeyedService&lt;IConnectionFactory&gt;(&quot;dbase1&quot;);
+        ///                return new {className}Repository(connectionFactory);
+        ///            });.
+        /// </summary>
+        internal static string DI_ServiceRegistrationExt {
+            get {
+                return ResourceManager.GetString("DI_ServiceRegistrationExt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Dialogs;
+        ///using App.Helpers;
+        ///using App.Interfaces.Repositories;
+        ///using App.Interfaces.Services;
+        ///using App.Repositories;
+        ///using App.Services;
+        ///using Infrastructure.Database.Common;
+        ///using Microsoft.Extensions.DependencyInjection;
+        ///using Serilog;
+        ///using System;
+        ///
+        ///namespace WindowsFormsApplication12
+        ///{
+        ///    internal static class ServiceRegistrationExtension
+        ///    {
+        ///        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        ///        {
+        ///{services}
+        ///             [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_ServiceRegistrationExt_Main {
+            get {
+                return ResourceManager.GetString("DI_ServiceRegistrationExt_Main", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.ComponentModel;
+        ///using System.Data;
+        ///using System.Reflection;
+        ///using System.Runtime.InteropServices;
+        ///
+        ///namespace App.Helpers
+        ///{
+        ///    public static class ExcelExport
+        ///    {
+        ///        private static object objRange_Late;
+        ///        private static object objSheet_Late;
+        ///
+        ///        //https://social.msdn.microsoft.com/Forums/vstudio/en-US/694fad12-fcbb-4995-89c5-092e8bb9114a/write-to-excel-multiple-sheet-using-late-binding?forum=vsto
+        ///        public sta [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_static_ExcelExport {
+            get {
+                return ResourceManager.GetString("DI_static_ExcelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Configuration;
+        ///using System.Data;
+        ///using System.Windows.Forms;
+        ///
+        ///namespace App.Helpers
+        ///{
+        ///    internal static class General
+        ///    {
+        ///        internal static DialogResult Mes(string descr, MessageBoxIcon icon = MessageBoxIcon.Information, MessageBoxButtons butt = MessageBoxButtons.OK)
+        ///        {
+        ///            if (descr.Length &gt; 0)
+        ///                return MessageBox.Show(descr, Application.ProductName, butt, icon);
+        ///            else
+        ///                return DialogResult.OK;
+        ///       [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_static_General {
+            get {
+                return ResourceManager.GetString("DI_static_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Data;
+        ///using System.Data.SQLite;
+        ///
+        ///namespace Infrastructure.Database.Common
+        ///{
+        ///    public class ConnectionFactory : IConnectionFactory
+        ///    {
+        ///        private readonly string _connestionString;
+        ///
+        ///        public ConnectionFactory(string connestionString)
+        ///        {
+        ///            //ArgumentException.ThrowIfNullOrWhiteSpace(connestionString);
+        ///            if (string.IsNullOrWhiteSpace(connestionString))
+        ///                throw new ArgumentException(&quot;Missing connection string&quot;);
+        ///
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_staticConnection_Factory {
+            get {
+                return ResourceManager.GetString("DI_staticConnection_Factory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System.Data;
+        ///
+        ///namespace Infrastructure.Database.Common
+        ///{
+        ///    public interface IConnectionFactory
+        ///    {
+        ///        IDbConnection CreateConnection();
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        internal static string DI_staticConnection_Interface {
+            get {
+                return ResourceManager.GetString("DI_staticConnection_Interface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System.Collections.Generic;
+        ///using System.Linq;
+        ///
+        ///namespace App.Helpers
+        ///{
+        ///    internal static class Extensions
+        ///    {
+        ///        internal static string ToStrinX(this object value)
+        ///        {
+        ///            string retvalue = &quot;&quot;;
+        ///
+        ///            if (value != null)
+        ///                retvalue = value.ToString();
+        ///
+        ///            return retvalue;
+        ///        }
+        ///
+        ///        internal static SortableBindingList&lt;T&gt; ToSortableBindingList&lt;T&gt;(this IEnumerable&lt;T&gt; source)
+        ///        {
+        ///            return new SortableBindingLis [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_staticForms_Extensions {
+            get {
+                return ResourceManager.GetString("DI_staticForms_Extensions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.ComponentModel;
+        ///
+        ///namespace App.Helpers
+        ///{
+        ///    ///////////////////////////////////////////
+        ///    /* Custom Binding   due                */
+        ///    /* error happens when user CancelEdit */
+        ///    ////////////////////////////////////////
+        ///
+        ///    [Serializable]
+        ///    public abstract class ModelBase : IEditableObject
+        ///    {
+        ///        protected ModelBase m_oOldVersion;
+        ///        bool m_bInEditMode;
+        ///
+        ///        //public IList ParentList;
+        ///
+        ///        //public ModelBase Parent;
+        ///
+        ///        /// &lt;sum [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_staticForms_ModelBase {
+            get {
+                return ResourceManager.GetString("DI_staticForms_ModelBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System;
+        ///using System.Collections.Generic;
+        ///using System.ComponentModel;
+        ///
+        /////////////////////////////////////
+        ////* ENABLE SORT COLUMNS ON GRID */
+        ///////////////////////////////////
+        ///
+        ///namespace App.Helpers
+        ///{
+        ///    public class SortableBindingList&lt;T&gt; : BindingList&lt;T&gt;
+        ///    {
+        ///        private bool isSorted;
+        ///        private ListSortDirection sortDirection;
+        ///        private PropertyDescriptor sortProperty;
+        ///
+        ///        public SortableBindingList() : base() { }
+        ///
+        ///        public SortableBindingList(IList&lt;T&gt; l [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_staticForms_SortableBindingList {
+            get {
+                return ResourceManager.GetString("DI_staticForms_SortableBindingList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System.Threading.Tasks;
+        ///
+        ///namespace App.Interfaces.Services
+        ///{
+        ///    public interface IAPIService
+        ///    {
+        ///        Task LogUserIPAsync();
+        ///    }
+        ///}
+        ///.
+        /// </summary>
+        internal static string DI_staticInterface_APIService {
+            get {
+                return ResourceManager.GetString("DI_staticInterface_APIService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using App.Interfaces.Services;
+        ///using Serilog;
+        ///using System.Net.Http;
+        ///using System.Threading.Tasks;
+        ///
+        ///namespace App.Services
+        ///{
+        ///    public class APIService : IAPIService
+        ///    {
+        ///        private static readonly HttpClient _http = new HttpClient();
+        ///        private readonly ILogger _logger;
+        ///
+        ///        public APIService(ILogger logger)
+        ///        {
+        ///            this._logger = logger;
+        ///        }
+        ///
+        ///        public async Task LogUserIPAsync()
+        ///        {   //error swallowed due &apos;Task.Run&apos; use try..catch to show  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DI_staticService_APIService {
+            get {
+                return ResourceManager.GetString("DI_staticService_APIService", resourceCulture);
             }
         }
         
@@ -284,7 +805,7 @@ namespace ORMgenerator.Properties {
         ///        private static object objSheet_Late;
         ///
         ///        //https://social.msdn.microsoft.com/Forums/vstudio/en-US/694fad12-fcbb-4995-89c5-092e8bb9114a/write-to-excel-multiple-sheet-using-late-binding?forum=vsto
-        ///        public [rest of string was truncated]&quot;;.
+        ///        public static bool Ge [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ExcelExport {
             get {
@@ -312,7 +833,7 @@ namespace ORMgenerator.Properties {
         ///            InitializeComponent();
         ///        }
         ///
-        ///        private void frm{entity}_Load(object  [rest of string was truncated]&quot;;.
+        ///        private void frm{entity}_Load(object sender, EventArgs e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form2_cs {
             get {
@@ -321,7 +842,7 @@ namespace ORMgenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to namespace Forms
+        ///   Looks up a localized string similar to namespace {namespace}
         ///{
         ///    partial class frm{entity}
         ///    {
@@ -336,7 +857,7 @@ namespace ORMgenerator.Properties {
         ///        /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
         ///        protected override void Dispose(bool disposing)
         ///        {
-        ///            if (disposi [rest of string was truncated]&quot;;.
+        ///            if (disposing &amp;&amp; (co [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form2_designer_cs {
             get {
@@ -355,7 +876,7 @@ namespace ORMgenerator.Properties {
         ///          &lt;xsd:element name=&quot;metadata&quot;&gt;
         ///            &lt;xsd:complexType&gt;
         ///              &lt;xsd:sequence&gt;
-        ///                &lt;xsd:element name=&quot;va [rest of string was truncated]&quot;;.
+        ///                &lt;xsd:element name=&quot;value&quot; type= [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form2_resx {
             get {
@@ -383,7 +904,7 @@ namespace ORMgenerator.Properties {
         ///            InitializeComponent();
         ///        }
         ///    
-        ///    [rest of string was truncated]&quot;;.
+        ///        private void f [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form3devexpress_cs {
             get {
@@ -392,7 +913,7 @@ namespace ORMgenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to namespace Forms
+        ///   Looks up a localized string similar to namespace {namespace}
         ///{
         ///    partial class frm{entity}
         ///    {
@@ -407,7 +928,7 @@ namespace ORMgenerator.Properties {
         ///        /// &lt;param name=&quot;disposing&quot;&gt;true if managed resources should be disposed; otherwise, false.&lt;/param&gt;
         ///        protected override void Dispose(bool disposing)
         ///        {
-        ///            if (disposi [rest of string was truncated]&quot;;.
+        ///            if (disposing &amp;&amp; (co [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form3devexpress_designer_cs {
             get {
@@ -426,7 +947,7 @@ namespace ORMgenerator.Properties {
         ///          &lt;xsd:element name=&quot;metadata&quot;&gt;
         ///            &lt;xsd:complexType&gt;
         ///              &lt;xsd:sequence&gt;
-        ///                &lt;xsd:element name=&quot;va [rest of string was truncated]&quot;;.
+        ///                &lt;xsd:element name=&quot;value&quot; type= [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Form3devexpress_resx {
             get {
@@ -540,7 +1061,7 @@ namespace ORMgenerator.Properties {
         ///
         ///        public SortableBindingList() : base() { }
         ///
-        ///        public SortableBindingList(IList&lt;T&gt; l [rest of string was truncated]&quot;;.
+        ///        public SortableBindingList(IList&lt;T&gt; list) : base(list) [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SortableBindingList {
             get {

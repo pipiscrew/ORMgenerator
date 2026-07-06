@@ -1,0 +1,99 @@
+using App.Helpers;
+using App.Interfaces.Services;
+using DevExpress.XtraEditors.Controls;
+using Domain;
+using Serilog;
+using System;
+using System.Windows.Forms;
+
+namespace App.Dialogs
+{
+    public partial class frm{entity} : Form
+    {
+        private readonly ILogger _logger;
+        private readonly I{entity}Service _{entityL}Service;
+        //private readonly ISupplierService _supplierService; // dummy service for combos
+
+        //public frm{entity}(ILogger logger, I{entity}Service {entityL}Service, ISupplierService supplierService)
+        public frm{entity}(ILogger logger, I{entity}Service {entityL}Service)
+        {
+            InitializeComponent();
+			
+            this._logger = logger;
+            this._{entityL}Service = {entityL}Service;
+
+            _logger.Information("{entity} Form initialized");
+        }
+		
+        private async void frm{entity}_Load(object sender, EventArgs e)
+        {
+            //disable to do white *cell* BG on select row
+            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+
+            //fillgrid
+            //var data = (await _{entityL}Service.GetListAsync()).ToList();
+            var {entityL}List = await _{entityL}Service.GetListAsync();
+            dg.DataSource = {entityL}List.ToSortableBindingList();
+
+			////dummy code for combos
+            ////https://supportcenter.devexpress.com/ticket/details/t611236/how-to-show-a-drop-down-list-in-edit-form
+            ////add repo item for Suppliers table
+            //RepositoryItemLookUpEdit edit = new RepositoryItemLookUpEdit();
+            //edit.DataSource = supplierService.GetComboList();
+            //edit.ValueMember = "supplierid";
+            //edit.DisplayMember = "companyname";
+            //edit.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo("companyname")); //same as DisplayMember
+            //dg.RepositoryItems.Add(edit);
+
+            ////attach supplier repo to Products table
+            //gridView1.Columns["supplierid"].ColumnEdit = edit;
+
+            //remove customerID by editform
+            gridView1.Columns[0].OptionsEditForm.Visible = DevExpress.Utils.DefaultBoolean.False;
+
+            //enable group header summation -- https://supportcenter.devexpress.com/ticket/details/q446051/how-to-show-a-group-row-count-in-a-grid
+            gridView1.GroupSummary.Add(DevExpress.Data.SummaryItemType.Count, string.Empty);  
+
+            //attach event on update button clicked
+            gridView1.ValidateRow += gridView1_ValidateRow;
+            gridView1.InvalidRowException += gridView1_InvalidRowException;
+
+            //allow to add new row
+            gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
+            gridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom;
+        }
+
+        void gridView1_InvalidRowException(object sender, DevExpress.XtraGrid.Views.Base.InvalidRowExceptionEventArgs e)
+        {
+            //Suppress displaying the default devx.datagrid error messagebox "Do you want to correct the value"
+            e.ExceptionMode = ExceptionMode.NoAction;
+        }
+
+        async void gridView1_ValidateRow(object sender, DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs e)
+        { // https://docs.devexpress.com/WindowsForms/DevExpress.XtraGrid.Views.Base.ColumnView.ValidateRow
+             {entity} x = ({entity}) e.Row;
+
+             ////////////////////////////////////////////validation
+             //if (string.IsNullOrEmpty(x.{PK})) //replace with required fields
+             //{
+             //    e.Valid = false;
+             //    General.Mes("please fill required fields");
+             //}
+
+             ////////////////////////////////////////////database logic
+             if (x.{PKL} == 0)  //when new row always the ID is 0
+                 x.{PKL} = await _{entityL}Service.InsertReturnIdAsync(x);
+             else
+             {
+                 var res = await _{entityL}Service.UpdateAsync(x);
+                 if (!res)
+                 {
+                     e.Valid = false;
+                     General.Mes("Update is not performed!\r\n\r\nContact support!", MessageBoxIcon.Exclamation);
+                     return;
+                 }
+             }
+        }
+
+    }
+}

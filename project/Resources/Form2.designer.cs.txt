@@ -1,4 +1,4 @@
-﻿namespace Forms
+﻿namespace {namespace}
 {
     partial class frm{entity}
     {

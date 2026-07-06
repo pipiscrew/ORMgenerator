@@ -1,0 +1,27 @@
+using App.Interfaces.Repositories;
+using Domain;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace App.Services
+{
+    /// <summary>
+    /// This file will not be overwritten. You can put additional {className}Service code in this class 
+    /// </summary>
+    public class {className}Service : {className}ServiceBase
+    {
+        public {className}Service(I{className}Repository {classNameLowerCase}Repository) : base({classNameLowerCase}Repository) { }
+
+        //user custom method
+        //must declared as virtual to {className}ServiceBase
+        //must declared to I{className}Service
+        public override async Task<IEnumerable<{className}>> GetRecords()
+        {
+            //call method from base 
+            //var x = GetComboListAsync();
+
+            //use custom function from {className}Repository
+            return await _{classNameLowerCase}Repository.GetRecords();
+        }
+    }
+}

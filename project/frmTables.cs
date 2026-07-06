@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -19,9 +20,13 @@ namespace ORMgenerator
             public static string selectSQL { get; set; }
         }
 
-        public frmTables(dbType DBtype)
+        private readonly string _connection_string;
+
+        public frmTables(dbType DBtype, string connection_string)
         {
             DBtypeProperties.DBtype = DBtype;
+
+            _connection_string = connection_string;
 
             InitializeComponent();
         }
@@ -138,9 +143,156 @@ namespace ORMgenerator
 
             string baseDir = Application.StartupPath + "\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + "\\";
 
-            GenerateBase(baseDir);
+            if (optDI.Checked)
+                GenerateDI(baseDir);
+            else
+                GenerateBase(baseDir);
 
             System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", baseDir));
+        }
+
+        private void GenerateDI(string baseDir)
+        {
+            string folderDialogs = baseDir +  "App\\Dialogs\\";
+            string folderHelpers = baseDir +  "App\\Helpers\\";
+
+            string folderRepositories = baseDir + "App\\Repositories\\"; //
+            string folderServicesBase = baseDir + "App\\Services\\Base\\"; //
+            string folderServices = baseDir + "App\\Services\\"; //
+
+            string folderInterfacesRepositories = baseDir + "App\\Interfaces\\Repositories\\"; //
+            string folderInterfacesServices = baseDir + "App\\Interfaces\\Services\\"; //
+
+            string folderDomain = baseDir + "Domain\\"; //
+
+            string folderInfraDbaseCommon = baseDir + "Infrastructure\\Database\\Common\\";
+            string folderInfraDbaseRepositories = baseDir + "Infrastructure\\Database\\Repositories\\"; //
+
+            Directory.CreateDirectory(folderDomain);
+            Directory.CreateDirectory(folderServicesBase);
+            Directory.CreateDirectory(folderServices);
+            Directory.CreateDirectory(folderInterfacesServices);
+            Directory.CreateDirectory(folderInfraDbaseRepositories);
+            Directory.CreateDirectory(folderRepositories);
+            Directory.CreateDirectory(folderInterfacesRepositories);
+
+            string tableNameNormalized = string.Empty;
+            string tableName;
+            DataTable dT;
+
+            string errors = string.Empty;
+
+            string templateService = "            services.AddSingleton<I{className}Service, {className}Service>();";
+            string templateForm = "            services.AddTransient<frm{className}>();";
+            string templateFormFunc = "            services.AddTransient<Func<frm{className}>>(sp => () => sp.GetRequiredService<frm{className}>());";
+
+            List<string> allServiceRegistrationExt = new List<string>();
+            List<string> allServices = new List<string>();
+            List<string> allForms = new List<string>();
+            List<string> allFormsFunc = new List<string>();
+
+            foreach (var item in lst.CheckedItems)
+            {
+                tableName = item.ToString();
+                //normalize table name for /CLASS name declaration/ + FILENAME
+                tableNameNormalized = ConvertToSingular(ReplaceInvalidChars(UppercaseFirst(tableName)));
+
+                //Console.WriteLine(string.Format("select * from [{0}]", item.ToString()));
+                dT = General.db.GetDataTableWithSchema(string.Format(DBtypeProperties.selectSQL, item.ToString()));
+
+                if (dT == null)
+                {
+                    errors += tableName + "\r\n";
+                    //General.Mes("Cannot generate " + tableName, MessageBoxIcon.Exclamation);
+                    continue;
+                }
+
+                //Domain\Entity file
+                File.WriteAllText(folderDomain + tableNameNormalized + ".cs",
+                    DI_GenerateModelFromDataTable(dT, tableNameNormalized, chkWinForms.Checked));
+
+                //Service 
+                File.WriteAllText(folderServices + tableNameNormalized + "Service.cs", 
+                        Properties.Resources.DI_Service.Replace("{className}", tableNameNormalized)
+                        .Replace("{classNameLowerCase}",tableNameNormalized.ToLower()));
+
+                //Service Base
+                File.WriteAllText(folderServicesBase + tableNameNormalized + "ServiceBase.cs",
+                        Properties.Resources.DI_ServiceBase.Replace("{className}",tableNameNormalized)
+                         .Replace("{classNameLowerCase}", tableNameNormalized.ToLower()));
+
+                //Service Interface
+                File.WriteAllText(folderInterfacesServices + "I" + tableNameNormalized + "Service.cs",
+                        Properties.Resources.DI_ServiceInterface.Replace("{className}", tableNameNormalized));
+
+                //Repository 
+                File.WriteAllText(folderRepositories + tableNameNormalized + "Repository.cs",
+                        Properties.Resources.DI_Repository.Replace("{className}", tableNameNormalized)
+                        .Replace("{tableName}", tableName));
+
+                //Repository Base
+                File.WriteAllText(folderInfraDbaseRepositories + tableNameNormalized + "RepositoryBase.cs",
+                      DapperGenerateServiceFromDataTable(dT, tableNameNormalized, tableName, Properties.Resources.DI_RepositoryBase));
+
+                //Repository Interface
+                File.WriteAllText(folderInterfacesRepositories + "I" + tableNameNormalized + "Repository.cs",
+                        Properties.Resources.DI_RepositoryInterface.Replace("{className}", tableNameNormalized));
+
+                if (chkWinForms.Checked)
+                {
+                    Directory.CreateDirectory(folderDialogs);
+
+                    if (chkWinFormsDevExpress.Checked)
+                        GenerateFormDevExpress(folderDialogs, tableNameNormalized, GetPrimaryKey(dT), dT, true);
+                    else
+                        GenerateForm(folderDialogs, tableNameNormalized, GetPrimaryKey(dT), dT, true);
+
+                    allForms.Add(templateForm.Replace("{className}", tableNameNormalized));
+                    allFormsFunc.Add(templateFormFunc.Replace("{className}", tableNameNormalized));
+                }
+
+                allServices.Add(templateService.Replace("{className}", tableNameNormalized));
+                allServiceRegistrationExt.Add(Properties.Resources.DI_ServiceRegistrationExt.Replace("{className}", tableNameNormalized));
+            }
+
+            //constant files
+            Directory.CreateDirectory(folderHelpers);
+            Directory.CreateDirectory(folderInfraDbaseCommon);
+
+            File.WriteAllText(folderHelpers + "General.cs", Properties.Resources.DI_static_General);
+            File.WriteAllText(folderHelpers + "ExcelExport.cs", Properties.Resources.DI_static_ExcelExport);
+            File.WriteAllText(folderInterfacesServices + "IAPIService.cs", Properties.Resources.DI_staticInterface_APIService);
+            File.WriteAllText(folderServices + "APIService.cs", Properties.Resources.DI_staticService_APIService);
+
+            File.WriteAllText(folderInfraDbaseCommon + "ConnectionFactory.cs", Properties.Resources.DI_staticConnection_Factory);
+            File.WriteAllText(folderInfraDbaseCommon + "IConnectionFactory.cs", Properties.Resources.DI_staticConnection_Interface);
+            
+            string serviceRegistrationBody = Properties.Resources.DI_ServiceRegistrationExt_Main.Replace("{services}",  string.Join(Environment.NewLine, allServices))
+                .Replace("{forms}",  string.Join(Environment.NewLine, allForms))
+                .Replace("{forms_func}", string.Join(Environment.NewLine, allFormsFunc))
+                .Replace("{services_dbase_registration}",  string.Join(Environment.NewLine, allServiceRegistrationExt));
+
+            File.WriteAllText(baseDir + "ServiceRegistrationExtension.cs", serviceRegistrationBody);
+
+            File.WriteAllText(baseDir + "app.config", Properties.Resources.DI_appConfig.Replace("{connection_string}", _connection_string));
+
+            File.WriteAllText(baseDir + "Program.cs", Properties.Resources.DI_ProgramCS.Replace("{className}", tableNameNormalized));
+
+            if (chkWinForms.Checked)
+            {
+                File.WriteAllText(folderHelpers + "Extensions.cs", Properties.Resources.DI_staticForms_Extensions);
+                File.WriteAllText(folderHelpers + "ModelBase.cs", Properties.Resources.DI_staticForms_ModelBase);
+                File.WriteAllText(folderHelpers + "SortableBindingList.cs", Properties.Resources.DI_staticForms_SortableBindingList);
+
+                if (chkWinFormsDevExpress.Checked)
+                    File.WriteAllText(baseDir + "!DevExpress_Notes.txt", Properties.Resources.DevExpress_Notes);
+            }
+
+            File.WriteAllText(baseDir + "!DI_Notes.txt", Properties.Resources.DI_Notes);
+
+            if (!string.IsNullOrEmpty(errors))
+                General.Mes("Cannot generate\r\n\r\n" + errors, MessageBoxIcon.Exclamation);
+
         }
 
         private void GenerateBase(string baseDir)
@@ -235,16 +387,25 @@ namespace ORMgenerator
                 General.Mes("Cannot generate\r\n\r\n" + errors, MessageBoxIcon.Exclamation);
         }
 
-        private void GenerateFormDevExpress(string dir, string entity, string PK, DataTable dT)
+        private void GenerateFormDevExpress(string dir, string entity, string PK, DataTable dT, bool isDI = false)
         {
             //FORM DESINGER
             string des = Properties.Resources.Form3devexpress_designer_cs;
+            if (isDI)
+                des = des.Replace("{namespace}", "App.Dialogs");
+            else
+                des = des.Replace("{namespace}", "Forms");
+
             des = des.Replace("{entity}", entity);
 
             File.WriteAllText(dir + "frm" + entity + ".designer.cs", des);
 
             //FORM CODE + RES
             string code = Properties.Resources.Form3devexpress_cs;
+            if (isDI)
+                code = Properties.Resources.DI_devexpressCode;
+            else
+                code = Properties.Resources.Form3devexpress_cs;
 
             code = code.Replace("{entity}", entity)
                 .Replace("{entityL}", entity.ToLower())
@@ -255,7 +416,7 @@ namespace ORMgenerator
             File.WriteAllText(dir + "frm" + entity + ".resx", Properties.Resources.Form3devexpress_resx);
         }
 
-        private void GenerateForm(string dir, string entity, string PK, DataTable dT)
+        private void GenerateForm(string dir, string entity, string PK, DataTable dT, bool isDI = false)
         {
             //FORM DESINGER
             string lblDeclare = Properties.Resources.lblDeclare;
@@ -312,6 +473,11 @@ namespace ORMgenerator
 
 
             string des = Properties.Resources.Form2_designer_cs;
+            if (isDI)
+                des = des.Replace("{namespace}", "App.Dialogs");
+            else
+                des = des.Replace("{namespace}", "Forms");
+
             des = des.Replace("{entity}", entity);
             des = des.Replace("{groupCTLS}", sbParent.ToString());
             des = des.Replace("{lblINIT}", sbInit.ToString());
@@ -324,7 +490,12 @@ namespace ORMgenerator
 
 
             //FORM CODE + RES
-            string code = Properties.Resources.Form2_cs;
+            string code;
+            
+            if (isDI)
+                code = Properties.Resources.DI_FormCode;
+            else 
+                code = Properties.Resources.Form2_cs;
 
             code = code.Replace("{entity}", entity)
                 .Replace("{entityL}", entity.ToLower())
@@ -393,7 +564,7 @@ namespace ORMgenerator
             sb.AppendLine("namespace Models.Base");
             sb.AppendLine("{");
             sb.AppendLine(string.Format("    /// <summary>\r\n    /// Base class for {0}.  Do not make changes to this class,\r\n    /// instead, put additional code in the {0} class\r\n    /// </summary>", className));
-            
+
             className += "Base";
 
             sb.AppendLine(string.Format("    public class {0}{1}", className, isWinForms ? " : ModelBase" : ""));
@@ -477,7 +648,7 @@ namespace ORMgenerator
         private enum ExportAs
         {
             dbasewrapper_reflection = 1,
-            dbasewrapper_parameters = 2,
+            di_withe_dapper = 2,
             dapper=3,
             
         }
@@ -495,7 +666,66 @@ namespace ORMgenerator
                 chkWinFormsDevExpress.Checked = false;
         }
 
+        ///////////////////////////////////////////////// DI methods
 
+        private static string DI_GenerateModelFromDataTable(DataTable dataTable, string className, bool isWinForms)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("using System;");
+            sb.AppendLine("using App.Helpers;");
+            sb.AppendLine();
+            sb.AppendLine("namespace Domain");
+            sb.AppendLine("{");
+
+            sb.AppendLine(string.Format("    public class {0}{1}", className, isWinForms ? " : ModelBase" : ""));
+            sb.AppendLine("    {");
+
+            foreach (DataColumn column in dataTable.Columns)
+            {
+                string columnName = column.ColumnName.ToLower().Replace(" ", "_");
+                string columnType = FixDataTypeUppercase(column.DataType.Name);
+                bool allowDBNull = column.AllowDBNull;
+
+                string propertyDeclaration = allowDBNull ? columnType + "?" : columnType;
+                sb.AppendLine(string.Format("        public {0} {1} {{ get; set; }}", propertyDeclaration, columnName));
+            }
+
+            sb.AppendLine("    }");
+            sb.AppendLine("}");
+
+            return sb.ToString();
+        }
+
+        //public static string DI_DapperGenerateServiceFromDataTable(DataTable dataTable, string className, string tableName, string serviceTemplate)
+        //{
+        //    //constants
+        //    string primaryKey = GetPrimaryKey(dataTable);
+        //    string[] columnNamesArray = dataTable.Columns.Cast<DataColumn>().Where(column => !column.ColumnName.ToLower().Equals(primaryKey)).Select(column => column.ColumnName.ToLower()).ToArray();
+
+        //    string insertColumnNames = string.Join(", ", columnNamesArray);
+        //    string insertColumnValues = "@" + string.Join(", @", columnNamesArray);
+        //    //string insertOBJvalues = "obj." + string.Join(", obj.", columnNamesArray);
+        //    string tableNameEnclosed = string.Format(DBtypeProperties.encloser, tableName);
+        //    string updateFields = string.Join(", ", columnNamesArray.Select(columnName => string.Format("{0} = @{0}", columnName)));
+
+
+        //    //to be used
+        //    string outputINSERT = string.Format("INSERT INTO {0} ({1}) VALUES ({2})", tableNameEnclosed, insertColumnNames, insertColumnValues);
+        //    string outputINSERTgetNewId = DBtypeProperties.selectSQLgetLastId;
+        //    string outputGetId = string.Format("SELECT * FROM {0} WHERE {1} = @{1}", tableNameEnclosed, primaryKey);
+        //    string outputGetList = string.Format("SELECT * FROM {0}", tableNameEnclosed);
+        //    string outputUPDATE = string.Format("UPDATE {0} SET {1} WHERE {2} = @{2}", tableNameEnclosed, updateFields, primaryKey);
+        //    string outputeDELETE = string.Format("DELETE FROM {0} WHERE {1} = @{1}", tableNameEnclosed, primaryKey);
+
+        //    string serviceOutput = serviceTemplate.Replace("{className}", className)
+        //        //.Replace("{outputINSERT}", outputINSERT).Replace("{insertOBJvalues}", insertOBJvalues)
+        //        .Replace("{outputINSERTgetNewId}", outputINSERTgetNewId).Replace("{outputGetId}", outputGetId).Replace("{primaryKey}", primaryKey)
+        //        .Replace("{outputGetList}", outputGetList).Replace("{outputUPDATE}", outputUPDATE).Replace("{outputeDELETE}", outputeDELETE).Replace("{titleField}", columnNamesArray[0]);
+
+
+        //    return serviceOutput;
+        //}
 
     }
 }

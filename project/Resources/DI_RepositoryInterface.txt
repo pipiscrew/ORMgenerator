@@ -1,0 +1,21 @@
+using Domain;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+
+namespace App.Interfaces.Repositories
+{
+    public interface I{className}Repository
+    {
+         Task<IEnumerable<{className}>> GetListAsync(string searchLike = "");
+         Task<long> InsertReturnIdAsync({className} obj);
+         Task<bool> UpdateAsync({className} obj);
+         Task<bool> DeleteAsync(long id);
+         Task<{className}> GetAsync(long id);
+         Task<List<{className}>> GetComboListAsync();
+         Task<DataTable> GetDatatableAsync();
+
+         //user custom method overridden on {className}Repository and virtual on {className}RepositoryBase
+         Task<IEnumerable<{className}>> GetRecords();
+    }
+}

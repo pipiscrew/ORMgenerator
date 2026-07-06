@@ -1,0 +1,132 @@
+using App.Interfaces.Repositories;
+using Dapper;
+using Domain;
+using Infrastructure.Database.Common;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Database.Repositories
+{
+    public class {className}RepositoryBase : I{className}Repository
+    {
+        protected readonly IConnectionFactory _connectionFactory;
+
+        public {className}RepositoryBase(IConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
+
+        public async Task<{className}> GetAsync(long id)
+        {
+            var sql = @"{outputGetId}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var result = await db.QuerySingleOrDefaultAsync<{className}>(sql, new { {primaryKey} = id }).ConfigureAwait(false);
+                return result;
+            }
+        }
+
+        public async Task<IEnumerable<{className}>> GetListAsync(string searchLike = "")
+        {
+            var sql = @"{outputGetList}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var result = await db.QueryAsync<{className}>(sql).ConfigureAwait(false);
+
+                if (!string.IsNullOrEmpty(searchLike))
+                {
+                    result = result.Where(item => item.GetType().GetProperties()
+                            .Any(prop => prop.PropertyType == typeof(string) && prop.GetValue(item, null) != null &&
+                             prop.GetValue(item, null).ToString().IndexOf(searchLike, StringComparison.OrdinalIgnoreCase) >= 0));
+                }
+
+                return result;
+            }
+        }
+
+        public async Task<List<{className}>> GetComboListAsync()
+        {
+            var sql = @"{outputGetList}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var products = await db.QueryAsync<{className}>(sql).ConfigureAwait(false);
+
+                var result = products.ToList();
+                result.Insert(0, new {className}() { id = 0, title = "" });
+
+                return result;
+            }
+        }
+
+        public async Task<long> InsertReturnIdAsync({className} obj)
+        {
+            var sql = @"{outputINSERT}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var rowsAffected = await db.ExecuteAsync(sql, obj).ConfigureAwait(false);
+
+                if (rowsAffected > 0)
+                {
+                    var selectCommand = "{outputINSERTgetNewId}";
+
+                    var id = await db.ExecuteScalarAsync<long>(selectCommand).ConfigureAwait(false);
+                    return id;
+                }
+
+                throw new Exception("Insert failed - no rows affected");
+            }
+        }
+
+        public async Task<bool> UpdateAsync({className} obj)
+        {
+            var sql = @"{outputUPDATE}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var rowsAffected = await db.ExecuteAsync(sql, obj).ConfigureAwait(false);
+
+                return rowsAffected > 0;
+            }
+        }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var sql = @"{outputeDELETE}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                var rowsAffected = await db.ExecuteAsync(sql, new { {primaryKey} = id }).ConfigureAwait(false);
+
+                return rowsAffected > 0;
+            }
+        }
+
+        public async Task<DataTable> GetDatatableAsync()
+        {
+            var sql = @"{outputGetList}";
+
+            using (var db = _connectionFactory.CreateConnection())
+            {
+                using (var reader = await db.ExecuteReaderAsync(sql).ConfigureAwait(false))
+                {
+                    var dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    return dataTable;
+                }
+            }
+        }
+
+        //user custom method that exists to {className}Repository must have virtual method here
+        public virtual Task<IEnumerable<{className}>> GetRecords()
+        {
+            throw new NotImplementedException("Override in derived class");
+        }
+    }
+}

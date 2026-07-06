@@ -1,0 +1,61 @@
+using App.Interfaces.Repositories;
+using App.Interfaces.Services;
+using Domain;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Threading.Tasks;
+
+namespace App.Services
+{
+    public class {className}ServiceBase : I{className}Service
+    {
+        protected readonly I{className}Repository _{classNameLowerCase}Repository;
+
+        public {className}ServiceBase(I{className}Repository {classNameLowerCase}Repository)
+        {
+            this._{classNameLowerCase}Repository = {classNameLowerCase}Repository;
+        }
+
+        public async Task<IEnumerable<{className}>> GetListAsync(string searchLike = "")
+        {
+            return await _{classNameLowerCase}Repository.GetListAsync(searchLike);
+        }
+
+        public async Task<long> InsertReturnIdAsync({className} obj)
+        {
+            return await _{classNameLowerCase}Repository.InsertReturnIdAsync(obj);
+        }
+
+        public async Task<bool> UpdateAsync({className} obj)
+        {
+            return await _{classNameLowerCase}Repository.UpdateAsync(obj);
+        }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            return await _{classNameLowerCase}Repository.DeleteAsync(id);
+        }
+
+        public async Task<{className}> GetAsync(long id)
+        {
+            return await _{classNameLowerCase}Repository.GetAsync(id);
+        }
+
+        public async Task<List<{className}>> GetComboListAsync()
+        {
+            return await _{classNameLowerCase}Repository.GetComboListAsync();
+        }
+
+        public async Task<DataTable> GetDatatableAsync()
+        {
+            return await _{classNameLowerCase}Repository.GetDatatableAsync();
+        }
+
+        //user custom method exists to {className}Service must have virtual method here
+        public virtual Task<IEnumerable<{className}>> GetRecords()
+        {
+            throw new NotImplementedException("Override in derived class");
+        }
+    }
+}

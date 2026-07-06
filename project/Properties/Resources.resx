@@ -202,4 +202,70 @@
   <data name="DevExpress_Notes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\!DevExpress_Notes.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
   </data>
+  <data name="DI_FormCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_FormCode.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_Repository" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_Repository.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_RepositoryBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_RepositoryBase.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_RepositoryInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_RepositoryInterface.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_Service" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_Service.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_ServiceBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_ServiceBase.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_ServiceInterface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_ServiceInterface.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticForms_Extensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticForms_Extensions.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticForms_ModelBase" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticForms_ModelBase.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticForms_SortableBindingList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticForms_SortableBindingList.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_static_ExcelExport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_static_ExcelExport.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_static_General" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_static_General.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_appConfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_appConfig.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_Notes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_Notes.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_ProgramCS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_ProgramCS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_ServiceRegistrationExt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_ServiceRegistrationExt.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_ServiceRegistrationExt_Main" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_ServiceRegistrationExt_Main.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticConnection_Factory" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticConnection_Factory.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticConnection_Interface" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticConnection_Interface.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticInterface_APIService" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticInterface_APIService.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_staticService_APIService" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_staticService_APIService.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
+  <data name="DI_devexpressCode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DI_devexpressCode.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1253</value>
+  </data>
 </root>

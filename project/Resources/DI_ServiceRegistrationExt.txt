@@ -1,0 +1,5 @@
+            services.AddSingleton<I{className}Repository, {className}Repository>(sp =>
+            {
+                var connectionFactory = sp.GetRequiredKeyedService<IConnectionFactory>("dbase1");
+                return new {className}Repository(connectionFactory);
+            });

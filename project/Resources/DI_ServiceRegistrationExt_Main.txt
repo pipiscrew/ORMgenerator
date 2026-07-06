@@ -1,0 +1,71 @@
+using App.Dialogs;
+using App.Helpers;
+using App.Interfaces.Repositories;
+using App.Interfaces.Services;
+using App.Repositories;
+using App.Services;
+using Infrastructure.Database.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using System;
+
+namespace WindowsFormsApplication12
+{
+    internal static class ServiceRegistrationExtension
+    {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+{services}
+            services.AddSingleton<IAPIService, APIService>(); //sample standalone service
+
+            return services;
+        }
+
+        public static IServiceCollection AddForms(this IServiceCollection services)
+        {
+{forms}
+
+            // Manually register Func<T> factories
+{forms_func}
+
+            return services;
+        }
+
+        public static IServiceCollection AddDatabase(this IServiceCollection services)
+        {
+            // connections
+            services.AddKeyedSingleton<IConnectionFactory, ConnectionFactory>("dbase1", (sp, _) =>
+            {
+                var connectionString = General.LoadSetting("dbase"); //load by app.config
+                return new ConnectionFactory(connectionString);
+            });
+
+            // repositories
+{services_dbase_registration}
+
+            return services;
+        }
+
+        public static IServiceCollection AddSerilog(this IServiceCollection services, string logFilepath)
+        {
+            var logger = new Serilog.LoggerConfiguration()
+                        .MinimumLevel.Debug()
+                        .WriteTo.File(
+                            path: logFilepath,
+                            outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                        )
+                        .CreateLogger();
+
+            /*
+             *  is hybrid approach :
+             *  Use constructor injection for forms and business logic classes and services,
+             *  but you can still use the Log.Logger if you like (ex Log.Logger.Information("Starting executing");).
+             */
+            Serilog.Log.Logger = logger;
+
+            services.AddSingleton<Serilog.ILogger>(logger);
+
+            return services;
+        }
+    }
+}

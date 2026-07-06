@@ -189,7 +189,7 @@ namespace ORMgenerator
                     x = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=111111)(PORT=1111)))(CONNECT_DATA=(SERVICE_NAME=11111)));User Id=11111;Password=1111;";
                     break;
                 case dbType.sqlite:
-                    x = "Data Source=1111111111111;Version=3;Password=IF_IS_ANY";
+                    x = "Data Source=1111111111111;Version=3;Pooling=True;Password=IF_IS_ANY";
                     break;
                 case dbType.sqlserver:
                     //Server=.\sqlexpress; Database=1111111111; User Id=sa; Password=12; Trusted_Connection=False;
@@ -259,7 +259,7 @@ namespace ORMgenerator
                 return;
             }
 
-            frmTables frm = new frmTables((dbType)cmbType.SelectedItem);
+            frmTables frm = new frmTables((dbType)cmbType.SelectedItem, txtC.Text.Trim());
             frm.ShowDialog();
         }
 

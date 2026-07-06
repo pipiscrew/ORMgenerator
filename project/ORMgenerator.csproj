@@ -73,7 +73,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Resources\DI_devexpressCode.txt" />
+    <None Include="Resources\DI_Notes.txt" />
+    <None Include="Resources\DI_ProgramCS.txt" />
+    <None Include="Resources\DI_appConfig.txt" />
+    <None Include="Resources\DI_ServiceRegistrationExt_Main.txt" />
+    <None Include="Resources\DI_ServiceRegistrationExt.txt" />
+    <None Include="Resources\DI_staticConnection_Interface.txt" />
+    <None Include="Resources\DI_staticConnection_Factory.txt" />
+    <None Include="Resources\DI_staticService_APIService.txt" />
+    <None Include="Resources\DI_staticInterface_APIService.txt" />
+    <None Include="Resources\DI_staticForms_SortableBindingList.txt" />
+    <None Include="Resources\DI_staticForms_ModelBase.txt" />
+    <None Include="Resources\DI_staticForms_Extensions.txt" />
+    <None Include="Resources\DI_static_ExcelExport.txt" />
+    <None Include="Resources\DI_static_General.txt" />
+    <None Include="Resources\DI_FormCode.txt" />
+    <None Include="Resources\DI_ServiceInterface.txt" />
+    <None Include="Resources\DI_RepositoryInterface.txt" />
+    <None Include="Resources\DI_Repository.txt" />
+    <None Include="Resources\DI_RepositoryBase.txt" />
+    <None Include="Resources\DI_Service.txt" />
+    <None Include="Resources\DI_ServiceBase.txt" />
     <None Include="Resources\!DevExpress_Notes.txt" />
+    <None Include="Resources\!DI_Notes.txt" />
     <Content Include="Resources\constGeneral.txt" />
     <Content Include="Resources\constDBASEWrapper.txt" />
     <None Include="Resources\Form3devexpress_designer.cs.txt" />

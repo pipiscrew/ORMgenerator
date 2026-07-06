@@ -33,7 +33,7 @@
             this.btnUnAll = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.groupExport = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.optDI = new System.Windows.Forms.RadioButton();
             this.optDapper = new System.Windows.Forms.RadioButton();
             this.optNative = new System.Windows.Forms.RadioButton();
             this.chkWinForms = new System.Windows.Forms.CheckBox();
@@ -83,7 +83,7 @@
             // 
             // groupExport
             // 
-            this.groupExport.Controls.Add(this.radioButton1);
+            this.groupExport.Controls.Add(this.optDI);
             this.groupExport.Controls.Add(this.optDapper);
             this.groupExport.Controls.Add(this.optNative);
             this.groupExport.Location = new System.Drawing.Point(335, 81);
@@ -93,17 +93,16 @@
             this.groupExport.TabStop = false;
             this.groupExport.Text = "export method :";
             // 
-            // radioButton1
+            // optDI
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(14, 59);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(174, 19);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.Tag = "2";
-            this.radioButton1.Text = "DBASEWrapper Parameters";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.optDI.AutoSize = true;
+            this.optDI.Location = new System.Drawing.Point(14, 59);
+            this.optDI.Name = "optDI";
+            this.optDI.Size = new System.Drawing.Size(107, 19);
+            this.optDI.TabIndex = 2;
+            this.optDI.Tag = "2";
+            this.optDI.Text = "DI with Dapper";
+            this.optDI.UseVisualStyleBackColor = true;
             // 
             // optDapper
             // 
@@ -189,7 +188,7 @@
         private System.Windows.Forms.GroupBox groupExport;
         private System.Windows.Forms.RadioButton optNative;
         private System.Windows.Forms.RadioButton optDapper;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton optDI;
         private System.Windows.Forms.CheckBox chkWinForms;
         private System.Windows.Forms.CheckBox chkWinFormsDevExpress;
     }
