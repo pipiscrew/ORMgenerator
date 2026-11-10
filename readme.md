@@ -159,3 +159,4 @@ greets to [Hytm/CockroachDB-Dapper-Example](https://github.com/Hytm/CockroachDB-
 alternative :  
 * [FreeSql](https://github.com/dotnetcore/FreeSql)
 * [Micron](https://github.com/KimTooFlex/Micron-ORM) - for mysql
+* [EF Core Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EFCorePowerTools) [[2](https://github.com/ErikEJ/EFCorePowerTools)]
